@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        Hello from 
+        <h:form>
+            
+            <h:panelGrid columns="8" border="1">
+                <f:facet name="header">
+                    <h:outputText value="Form"/>
+                </f:facet>
+                <h:outputLabel value="Quarter"/>
+                <h:outputLabel value="Time left"/>
+                <h:outputLabel value="Team"/>
+                <h:outputLabel value="Foul Code"/>
+                <h:outputLabel value="Player Number"/>
+                <h:outputLabel value="Player Position"/>
+                <h:outputLabel value="Officials"/>
+                <h:outputLabel value="Decision"/>
+                
+                <h:inputText value="#{start.quarter}" style="width: 100px"/>
+                
+                <h:inputText id="data2" value="#{start.data2}" style="width: 100px">
+                    <f:converter converterId="com.converter.TimeConverter"/>
+                </h:inputText>
+                
+                <p:selectOneButton  value="#{start.homeOrAway}" style="width: 160px">
+                    <f:selectItem itemValue="Home" itemLabel="Home"/>
+                    <f:selectItem itemValue="Visitor" itemLabel="Visitor"/>
+                </p:selectOneButton>
+                
+                <p:selectOneMenu id="test" value="#{start.foulType}" editable="true" filter="true" filterMatchMode="startsWith" style="width: 100px">
+                    <f:selectItems value="#{start.fouls}" itemLabel="#{fouls.key}" itemValue="#{fouls.value}"/>
+                </p:selectOneMenu>
+                
+                <h:inputText value="#{start.player}" style="width: 100px"/>
+                
+                <p:selectOneMenu value="#{start.playerPosition}">
+                    <f:selectItems value="#{start.positions}" itemLabel="#{positions.key}" itemValue="#{positions.value}"/>
+                </p:selectOneMenu>
+                
+                <p:selectManyButton value="#{start.official1}" style="width: 1100px">
+                    <f:selectItem itemValue="Referee" itemLabel="Referee"/>
+                    <f:selectItem itemValue="Umpire" itemLabel="Umpire"/>
+                    <f:selectItem itemValue="Head Linesman" itemLabel="Head Linesman"/>
+                    <f:selectItem itemValue="Line Judge" itemLabel="Line Judge"/>
+                    <f:selectItem itemValue="Back Judge" itemLabel="Back Judge"/>
+                    <f:selectItem itemValue="Field Judge" itemLabel="Field Judge"/>
+                    <f:selectItem itemValue="Side Judge" itemLabel="Side Judge"/>
+                    <f:selectItem itemValue="Centre Judge" itemLabel="Centre Judge"/>
+                    <f:selectItem itemValue="Video Judge" itemLabel="Video Judge"/>
+                    <f:selectItem itemValue="None" itemLabel="None"/>
+                </p:selectManyButton>
+                
+                <p:selectOneButton value="#{start.decision}" style="width: 280px">
+                    <f:selectItem itemValue="Accepted" itemLabel="Accepted"/>
+                    <f:selectItem itemValue="Declined" itemLabel="Declined"/>
+                    <f:selectItem itemValue="Offset" itemLabel="Offset"/>
+                </p:selectOneButton>
+                
+                <f:facet name="footer">
+                    <h:commandButton value="Add Foul" action="#{start.action}"/>
+                    <h:commandButton value="Finish"/>
+                </f:facet>
+            </h:panelGrid>
+            <br/>
+            <h:panelGrid columns="8" id="Results" border="1" cellpadding="10" cellspacing="1">
+                <f:facet name="header">
+                    <h:outputText value="Results"/>
+                </f:facet>
+                <h:outputLabel value="Quarter"/>
+                <h:outputLabel value="Time remaining"/>
+                <h:outputLabel value="Team"/>
+                <h:outputLabel value="Foul Code"/>
+                <h:outputLabel value="Player number"/>
+                <h:outputLabel value="Player position"/>
+                <h:outputLabel value="Officials"/>
+                <h:outputLabel value="Decision"/>
+                <h:outputText value="#{start.quarter}"/>
+                <h:outputText value="#{start.data2}"/>
+                <h:outputText value="#{start.homeOrAway}"/>
+                <h:outputText value="#{start.foulType}"/>
+                <h:outputText value="#{start.player}"/>
+                <h:outputText value="#{start.playerPosition}"/>
+                <h:outputText value="#{start.referee}"/>
+                <h:outputText value="#{start.decision}"/>
+            </h:panelGrid>
+            <br/>
+            <h:dataTable value="#{start.decision}" border="1">
+                <f:facet name="header">
+                    <h:outputText value="Results"/>
+                </f:facet>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Quarter"/>
+                    </f:facet>
+                    <h:outputText value="#{start.quarter}"/>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Time remaining"/>
+                    </f:facet>
+                    <h:outputText value="#{start.data2}"/>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Team"/>
+                    </f:facet>
+                    <h:outputText value="#{start.homeOrAway}"/>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Foul"/>
+                    </f:facet>
+                    <h:outputText value="#{start.foulType}"/>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Player Number"/>
+                    </f:facet>
+                    <h:outputText value="#{start.player}"/>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Player Position"/>
+                    </f:facet>
+                    <h:outputText value="#{start.playerPosition}"/>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Officials"/>
+                    </f:facet>
+                    <h:outputText value="#{start.referee}"/>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Decision"/>
+                    </f:facet>
+                    <h:outputText value="#{start.decision}"/>
+                </h:column>
+            </h:dataTable>
+            
+        </h:form>
+    </h:body>
+</html>
+
