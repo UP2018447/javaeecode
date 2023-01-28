@@ -35,7 +35,7 @@
                     <f:selectItem itemValue="Visitor" itemLabel="Visitor"/>
                 </p:selectOneButton>
                 
-                <p:selectOneMenu id="test" value="#{start.foul.foulName}" editable="true" filter="true" filterMatchMode="startsWith" style="width: 100px">
+                <p:selectOneMenu id="test" value="#{start.foul.foulName}" editable="true" filter="true" filterMatchMode="startsWith" style="width: 120px">
                     <f:selectItems value="#{start.fouls}" itemLabel="#{fouls.key}" itemValue="#{fouls.value}"/>
                 </p:selectOneMenu>
                 
@@ -45,16 +45,16 @@
                     <f:selectItems value="#{start.positions}" itemLabel="#{positions.key}" itemValue="#{positions.value}"/>
                 </p:selectOneMenu>
                 
-                <p:selectManyButton value="#{start.official1}" style="width: 600px">
+                <p:selectManyButton value="#{start.official1}" style="width: 510px">
                     <f:selectItem itemValue="R" itemLabel="R"/>
-                    <f:selectItem itemValue="U" itemLabel="Um"/>
-                    <f:selectItem itemValue="H L" itemLabel="H L"/>
-                    <f:selectItem itemValue="L J" itemLabel="L J"/>
-                    <f:selectItem itemValue="B J" itemLabel="B J"/>
-                    <f:selectItem itemValue="F J" itemLabel="F J"/>
-                    <f:selectItem itemValue="S J" itemLabel="S J"/>
-                    <f:selectItem itemValue="C J" itemLabel="C J"/>
-                    <f:selectItem itemValue="V J" itemLabel="V J"/>
+                    <f:selectItem itemValue="Um" itemLabel="Um"/>
+                    <f:selectItem itemValue="HL" itemLabel="HL"/>
+                    <f:selectItem itemValue="LJ" itemLabel="LJ"/>
+                    <f:selectItem itemValue="BJ" itemLabel="BJ"/>
+                    <f:selectItem itemValue="FJ" itemLabel="FJ"/>
+                    <f:selectItem itemValue="SJ" itemLabel="SJ"/>
+                    <f:selectItem itemValue="CJ" itemLabel="CJ"/>
+                    <f:selectItem itemValue="VJ" itemLabel="VJ"/>
                     <f:selectItem itemValue="N/A" itemLabel="N/A"/>
                 </p:selectManyButton>
                 

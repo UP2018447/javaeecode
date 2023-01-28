@@ -68,7 +68,7 @@ public class start {
     
     
     public void populate(){
-        recordList.add(new Records(this.quarter, String.valueOf(data2), this.homeOrAway, this.foulType, this.player, this.playerPosition, this.referee, this.decision));
+        recordList.add(new Records(foul.getQuarter(), foul.getTime(), foul.getHomeOrAway(), foul.getFoulName(), foul.getPlayer(), foul.getPosition(), foul.getOfficial1(), foul.getDecision()));
     }
 
     public List<Records> getRecordList() {
@@ -211,12 +211,9 @@ public class start {
     private StartService ss;
     
     public void action(){
-        String Test = getFoulType();
-        this.foulType = Test;
-        String Position = getPlayerPosition();
         String timeLeft = String.valueOf(this.data2);
         setReferee(getOfficial1InString());
-        ss.start(Test, timeLeft, player, homeOrAway, referee, decision, Position);
+        ss.start(timeLeft, referee, foul);
         populate();
     }
 

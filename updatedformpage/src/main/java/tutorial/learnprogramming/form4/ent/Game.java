@@ -13,5 +13,15 @@ import java.util.List;
 public class Game {
     
     private List<Foul> foulList;
+
+    public List<Foul> getFoulList() {
+        return foulList;
+    }
+
+    public void setFoulList(List<Foul> foulList) {
+        this.foulList = foulList;
+    }
+    
+    
     
 }
