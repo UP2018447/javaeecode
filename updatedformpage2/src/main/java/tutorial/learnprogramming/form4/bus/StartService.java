@@ -22,10 +22,11 @@ public class StartService {
     @EJB
     private FoulFacade ff;
     
-    public void start(String timeLeft, String official, Foul foul){
+    public Foul start(String timeLeft, String official, Foul foul){
         foul.setTime(timeLeft);
         foul.setOfficial1(official);
         ff.create(foul);
+        return foul;
     }
     
     public String startStarting(String text){

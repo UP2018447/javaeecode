@@ -15,7 +15,7 @@ import tutorial.learnprogramming.form4.ent.fouls;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
 import tutorial.learnprogramming.form4.ent.Foul;
 import tutorial.learnprogramming.form4.ent.Positions;
 //import tutorial.learnprogramming.form4.ent.foulRecord;
@@ -50,7 +50,6 @@ public class start {
     private String referee;
     private Map<String,String> fouls;
     private Map<String,String> positions;
-    private List<Records> recordList = new ArrayList<>();
     
     public start() {
     }
@@ -63,16 +62,6 @@ public class start {
 
     public void setFoul(Foul foul) {
         this.foul = foul;
-    }
-    
-    
-    
-    public void populate(){
-        recordList.add(new Records(foul.getQuarter(), foul.getTime(), foul.getHomeOrAway(), foul.getFoulName(), foul.getPlayer(), foul.getPosition(), foul.getOfficial1(), foul.getDecision()));
-    }
-
-    public List<Records> getRecordList() {
-        return recordList;
     }
 
     public Map<String,String> getPositions() {
@@ -214,7 +203,7 @@ public class start {
         String timeLeft = String.valueOf(this.data2);
         setReferee(getOfficial1InString());
         ss.start(timeLeft, referee, foul);
-        populate();
+        populateTable();
     }
 
     public timeData getData2() {
@@ -223,5 +212,19 @@ public class start {
 
     public void setData2(timeData data2) {
         this.data2 = data2;
+    }
+    
+    private List<Foul> foulsAdded = new ArrayList<>();
+
+    public List<Foul> getFoulsAdded() {
+        return foulsAdded;
+    }
+
+    public void setFoulsAdded(List<Foul> foulsAdded) {
+        this.foulsAdded = foulsAdded;
+    }
+    
+    public void populateTable(){
+        foulsAdded.add(foul);
     }
 }
