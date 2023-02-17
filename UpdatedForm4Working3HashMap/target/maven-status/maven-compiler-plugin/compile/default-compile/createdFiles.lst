@@ -4,9 +4,7 @@ tutorial\learnprogramming\form4\ent\TimeData.class
 tutorial\learnprogramming\form4\pers\AbstractFacade.class
 tutorial\learnprogramming\form4\bus\StartService.class
 tutorial\learnprogramming\form4\ctrl\Start.class
-tutorial\learnprogramming\form4\ent\Codes$1.class
 tutorial\learnprogramming\form4\ent\Codes.class
-tutorial\learnprogramming\form4\ent\Fouls.class
 tutorial\learnprogramming\form4\ent\Foul.class
 tutorial\learnprogramming\form4\ent\Positions.class
 tutorial\learnprogramming\form4\ent\Game.class

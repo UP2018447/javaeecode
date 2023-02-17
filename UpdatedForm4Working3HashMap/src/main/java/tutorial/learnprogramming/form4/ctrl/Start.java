@@ -11,10 +11,11 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import tutorial.learnprogramming.form4.bus.StartService;
 import tutorial.learnprogramming.form4.ent.TimeData;
-import tutorial.learnprogramming.form4.ent.Fouls;
+//import tutorial.learnprogramming.form4.ent.Fouls;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import tutorial.learnprogramming.form4.ent.Codes;
 //import javax.annotation.PostConstruct;
 import tutorial.learnprogramming.form4.ent.Foul;
 import tutorial.learnprogramming.form4.ent.Positions;
@@ -77,8 +78,10 @@ public class Start {
     
     public Map<String,String> getFouls(){
         fouls = new HashMap<>();
-        Fouls fL = new Fouls();
-        fL.getFouls(fouls);
+        //Fouls fL = new Fouls();
+        Codes codes = new Codes();
+        fouls = codes.getCodes();
+        //fL.getFouls(fouls);
         return fouls;
     }
 
