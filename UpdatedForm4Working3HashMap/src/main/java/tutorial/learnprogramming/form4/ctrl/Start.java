@@ -206,6 +206,7 @@ public class Start {
         String timeLeft = String.valueOf(this.data2);
         setReferee(getOfficial1InString());
         ss.start(timeLeft, referee, foul);
+        ss.populate();
         populateTable();
     }
 

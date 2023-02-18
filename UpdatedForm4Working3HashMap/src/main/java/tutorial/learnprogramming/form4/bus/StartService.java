@@ -4,9 +4,14 @@
  */
 package tutorial.learnprogramming.form4.bus;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import tutorial.learnprogramming.form4.ent.Codes;
 import tutorial.learnprogramming.form4.ent.Foul;
+import tutorial.learnprogramming.form4.pers.CodesFacade;
 import tutorial.learnprogramming.form4.pers.FoulFacade;
 
 /**
@@ -22,11 +27,20 @@ public class StartService {
     @EJB
     private FoulFacade ff;
     
+    @EJB
+    private CodesFacade cf;
+    
     public Foul start(String timeLeft, String official, Foul foul){
         foul.setTime(timeLeft);
         foul.setOfficial1(official);
         ff.create(foul);
         return foul;
+    }
+    
+    public void populate(){
+        Codes codes = new Codes();
+        Map<String,String> foulCodes = codes.getCodes();
+        cf.create(codes);
     }
     
 }
