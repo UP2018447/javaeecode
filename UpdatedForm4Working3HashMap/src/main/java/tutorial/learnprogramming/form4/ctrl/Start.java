@@ -64,6 +64,18 @@ public class Start {
     public void setFoul(Foul foul) {
         this.foul = foul;
     }
+    
+    private Codes codes = new Codes();
+
+    public Codes getCodes() {
+        return codes;
+    }
+
+    public void setCodes(Codes codes) {
+        this.codes = codes;
+    }
+    
+    
 
     public Map<String,String> getPositions() {
         positions = new HashMap<>();
@@ -79,7 +91,7 @@ public class Start {
     public Map<String,String> getFouls(){
         fouls = new HashMap<>();
         //Fouls fL = new Fouls();
-        Codes codes = new Codes();
+        //Codes codes = new Codes();
         fouls = codes.getCodes();
         //fL.getFouls(fouls);
         return fouls;
@@ -206,7 +218,7 @@ public class Start {
         String timeLeft = String.valueOf(this.data2);
         setReferee(getOfficial1InString());
         ss.start(timeLeft, referee, foul);
-        ss.populate();
+        ss.populate(codes);
         populateTable();
     }
 

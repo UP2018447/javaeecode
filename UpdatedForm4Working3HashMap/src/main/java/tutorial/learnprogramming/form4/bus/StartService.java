@@ -37,9 +37,7 @@ public class StartService {
         return foul;
     }
     
-    public void populate(){
-        Codes codes = new Codes();
-        Map<String,String> foulCodes = codes.getCodes();
+    public void populate(Codes codes){
         cf.create(codes);
     }
     
