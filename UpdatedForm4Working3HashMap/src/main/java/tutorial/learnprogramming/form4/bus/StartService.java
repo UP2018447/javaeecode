@@ -37,8 +37,9 @@ public class StartService {
         return foul;
     }
     
-    public void populate(Codes codes){
-        cf.create(codes);
+    public void populate(){
+        Codes foulCodes = new Codes();
+        cf.create(foulCodes);
     }
     
 }

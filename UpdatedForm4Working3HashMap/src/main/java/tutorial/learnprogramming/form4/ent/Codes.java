@@ -5,22 +5,23 @@
 package tutorial.learnprogramming.form4.ent;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 
 /**
  *
  * @author adamt
  */
-@Entity
+@Entity(name = "foulCodes1")
 public class Codes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,7 +36,11 @@ public class Codes implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
+    
+    @ElementCollection
+    @MapKeyColumn(name = "foulCodes")
+    @Column(name = "foulNames")
+    @CollectionTable(name = "foulCodesCollectionTable", joinColumns=@JoinColumn(name = "example_id"))
     private static Map<String, String> codes = null;
 
     private void init() {
