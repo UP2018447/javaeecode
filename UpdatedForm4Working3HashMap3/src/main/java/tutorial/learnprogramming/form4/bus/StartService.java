@@ -48,10 +48,11 @@ public class StartService {
         return foul;
     }
 
-    //public void populate(){
-    //Codes foulCodes = new Codes();
-    //cf.create(foulCodes);
-    //}
+    public void populate() {
+        Codes foulCodes = new Codes();
+        cf.create(foulCodes);
+    }
+
     //public void populate2(){
     //FoulCodes fc = new FoulCodes();
     //NewFoulCodes nfc = new NewFoulCodes();

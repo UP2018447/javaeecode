@@ -40,7 +40,7 @@ public class Codes implements Serializable {
     @ElementCollection
     @MapKeyColumn(name = "foulCodes")
     @Column(name = "foulNames")
-    @CollectionTable(name = "foulCodesCollectionTable", joinColumns=@JoinColumn(name = "example_id"))
+    @CollectionTable(name = "foulCodesCollectionTable") /*, joinColumns=@JoinColumn(name = "example_id"))*/
     private static Map<String, String> codes = null;
 
     private void init() {
@@ -135,7 +135,7 @@ public class Codes implements Serializable {
         init();
     }
 
-    public static Map<String, String> getCodes() {
+    public Map<String, String> getCodes() {
         return codes;
     }
 
