@@ -81,4 +81,9 @@ public class StartService {
         nfc.setFoulName(foul);
         nfcf.create(nfc);
     }
+    
+    public List<Foul> retrieveFoul(){
+        List<Foul> fouls = ff.findAll();
+        return fouls;
+    }
 }

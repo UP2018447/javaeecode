@@ -94,7 +94,7 @@ public class StartCtrl {
         //Fouls fL = new Fouls();
         Codes codes = new Codes();
         fouls = codes.getCodes();
-        //fL.getFouls(fouls);
+        //fL.getFouls(foulList);
         return fouls;
     }
 
@@ -219,11 +219,34 @@ public class StartCtrl {
         String timeLeft = String.valueOf(this.data2);
         setReferee(getOfficial1InString());
         ss.start(timeLeft, referee, foul);
-        ss.populate();
+        //ss.populate();
         for(int i=0; i < 81; i++){
             ss.populate3(i);
         }
-        populateTable();
+        List<Foul> foulList = ss.retrieveFoul();
+        
+        for(int i = foulList.size()-1; i >= 0; i--){
+            foulsAdded.add(foulList.get(i));
+        }
+        
+    }
+    
+    public void finish(){
+        List<Foul> listOfFouls = ss.retrieveFoul();
+        
+        for(int i = listOfFouls.size()-1; i >= 0; i--){
+            allFouls.add(listOfFouls.get(i));
+        }
+    }
+    
+    private List<Foul> allFouls = new ArrayList<>();
+
+    public List<Foul> getAllFouls() {
+        return allFouls;
+    }
+
+    public void setAllFouls(List<Foul> allFouls) {
+        this.allFouls = allFouls;
     }
 
     public TimeData getData2() {

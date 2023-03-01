@@ -41,6 +41,88 @@ public class Game implements Serializable{
         this.foulList = foulList;
     }
     
+    private String referee;
+    private String umpire;
+    private String headLinesman;
+    private String lineJudge;
+    private String backingJudge;
+    private String fieldJudge;
+    private String sideJudge;
+    private String centreJudge;
+    private String videoJudge;
+
+    public String getReferee() {
+        return referee;
+    }
+
+    public void setReferee(String referee) {
+        this.referee = referee;
+    }
+
+    public String getUmpire() {
+        return umpire;
+    }
+
+    public void setUmpire(String umpire) {
+        this.umpire = umpire;
+    }
+
+    public String getHeadLinesman() {
+        return headLinesman;
+    }
+
+    public void setHeadLinesman(String headLinesman) {
+        this.headLinesman = headLinesman;
+    }
+
+    public String getLineJudge() {
+        return lineJudge;
+    }
+
+    public void setLineJudge(String lineJudge) {
+        this.lineJudge = lineJudge;
+    }
+
+    public String getBackingJudge() {
+        return backingJudge;
+    }
+
+    public void setBackingJudge(String backingJudge) {
+        this.backingJudge = backingJudge;
+    }
+
+    public String getFieldJudge() {
+        return fieldJudge;
+    }
+
+    public void setFieldJudge(String fieldJudge) {
+        this.fieldJudge = fieldJudge;
+    }
+
+    public String getSideJudge() {
+        return sideJudge;
+    }
+
+    public void setSideJudge(String sideJudge) {
+        this.sideJudge = sideJudge;
+    }
+
+    public String getCentreJudge() {
+        return centreJudge;
+    }
+
+    public void setCentreJudge(String centreJudge) {
+        this.centreJudge = centreJudge;
+    }
+
+    public String getVideoJudge() {
+        return videoJudge;
+    }
+
+    public void setVideoJudge(String videoJudge) {
+        this.videoJudge = videoJudge;
+    }
+    
     
     
 }

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:dataTable value="#{start.allFouls}" var="foul" border="1">
+            <f:facet name="header">
+                <h:outputText value="Fouls"/>
+            </f:facet>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Quarter"/>
+                </f:facet>
+                <h:outputText value="#{foul.quarter}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Time"/>
+                </f:facet>
+                <h:outputText value="#{foul.time}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Team"/>
+                </f:facet>
+                <h:outputText value="#{foul.homeOrAway}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Foul"/>
+                </f:facet>
+                <h:outputText value="#{foul.foulName}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Player"/>
+                </f:facet>
+                <h:outputText value="#{foul.player}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Position"/>
+                </f:facet>
+                <h:outputText value="#{foul.position}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Officials"/>
+                </f:facet>
+                <h:outputText value="#{foul.official1}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Decision"/>
+                </f:facet>
+                <h:outputText value="#{foul.decision}"/>
+            </h:column>
+            
+            <f:facet name="footer">
+                <h:commandButton value="Reveal" action="#{start.finish}"/>
+            </f:facet>
+
+        </h:dataTable>
+    </h:body>
+</html>
+
