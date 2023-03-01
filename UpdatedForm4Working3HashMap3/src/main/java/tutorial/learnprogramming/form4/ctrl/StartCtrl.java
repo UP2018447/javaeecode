@@ -223,23 +223,52 @@ public class StartCtrl {
         for(int i=0; i < 81; i++){
             ss.populate3(i);
         }
+        
+        //ss.convert(foul);
         List<Foul> foulList = ss.retrieveFoul();
         
         for(int i = foulList.size()-1; i >= 0; i--){
+            //Foul fouli = new Foul();
+            foul = foulList.get(i);
+            String time1 = foul.getTime();
+            String time2 = timeConversion(time1);
+            foul.setTime(time2);
+            foulList.set(i, foul);
             foulsAdded.add(foulList.get(i));
         }
         
+    }
+    
+    public String timeConversion(String time){
+        int secs = Integer.parseInt(time);
+        int remainingSeconds = secs % 60;
+        secs = secs - remainingSeconds;
+        int minutes = secs / 60;
+        String mins = Integer.toString(minutes);
+        String secsRemaining = Integer.toString(remainingSeconds);
+        String realTime = mins + "'" + secsRemaining;
+        return realTime;
     }
     
     public void finish(){
         List<Foul> listOfFouls = ss.retrieveFoul();
         
         for(int i = listOfFouls.size()-1; i >= 0; i--){
-            allFouls.add(listOfFouls.get(i));
+            foulsAdded.add(listOfFouls.get(i));
         }
     }
     
-    private List<Foul> allFouls = new ArrayList<>();
+    private int count;
+
+    public int getCount() {
+        return foulsAdded.size();
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    
+    private List<Foul> allFouls;
 
     public List<Foul> getAllFouls() {
         return allFouls;

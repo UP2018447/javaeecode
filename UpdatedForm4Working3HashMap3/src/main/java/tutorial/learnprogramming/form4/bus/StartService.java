@@ -52,6 +52,18 @@ public class StartService {
         Codes foulCodes = new Codes();
         cf.create(foulCodes);
     }
+    
+    public void convert(Foul foul){
+        String seconds = foul.getTime();
+        int secs = Integer.parseInt(seconds);
+        int remainingSeconds = secs % 60;
+        secs = secs - remainingSeconds;
+        int minutes = secs / 60;
+        String mins = Integer.toString(minutes);
+        String secsRemaining = Integer.toString(remainingSeconds);
+        String realTime = mins + "'" + secsRemaining;
+        foul.setTime(realTime);
+    }
 
     //public void populate2(){
     //FoulCodes fc = new FoulCodes();
