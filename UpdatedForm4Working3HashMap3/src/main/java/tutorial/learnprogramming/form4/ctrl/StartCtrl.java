@@ -21,7 +21,6 @@ import tutorial.learnprogramming.form4.ent.Codes;
 import tutorial.learnprogramming.form4.ent.Foul;
 import tutorial.learnprogramming.form4.ent.FoulCodes;
 import tutorial.learnprogramming.form4.ent.Positions;
-import tutorial.learnprogramming.form4.ent.Thing;
 //import tutorial.learnprogramming.form4.ent.foulRecord;
 
 /**
@@ -77,7 +76,7 @@ public class StartCtrl {
     //public void setCodes(Codes codes) {
         //this.codes = codes;
     //}
-
+    
     public Map<String,String> getPositions() {
         positions = new HashMap<>();
         Positions pL = new Positions();
@@ -256,6 +255,23 @@ public class StartCtrl {
         for(int i = listOfFouls.size()-1; i >= 0; i--){
             foulsAdded.add(listOfFouls.get(i));
         }
+    }
+    
+    private String record;
+
+    public String getRecord() {
+        return record;
+    }
+
+    public void setRecord(String record) {
+        this.record = record;
+    }
+    
+    public void delete(){
+        int records = Integer.parseInt(record);
+        List<Foul> foulTable = ss.retrieveFoul();
+        Foul foul = foulTable.get(records-1);
+        ss.delete(foul);
     }
     
     private int count;

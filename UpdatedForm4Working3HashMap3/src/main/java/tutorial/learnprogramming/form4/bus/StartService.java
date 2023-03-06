@@ -14,11 +14,9 @@ import tutorial.learnprogramming.form4.ent.Codes;
 import tutorial.learnprogramming.form4.ent.Foul;
 import tutorial.learnprogramming.form4.ent.FoulCodes;
 import tutorial.learnprogramming.form4.ent.NewFoulCodes;
-import tutorial.learnprogramming.form4.ent.Thing;
 import tutorial.learnprogramming.form4.pers.CodesFacade;
 import tutorial.learnprogramming.form4.pers.FoulFacade;
 import tutorial.learnprogramming.form4.pers.NewFoulCodesFacade;
-import tutorial.learnprogramming.form4.pers.ThingFacade;
 
 /**
  *
@@ -37,9 +35,6 @@ public class StartService {
 
     @EJB
     private NewFoulCodesFacade nfcf;
-
-    @EJB
-    private ThingFacade tf;
 
     public Foul start(String timeLeft, String official, Foul foul) {
         foul.setTime(timeLeft);
@@ -63,6 +58,15 @@ public class StartService {
         String secsRemaining = Integer.toString(remainingSeconds);
         String realTime = mins + "'" + secsRemaining;
         foul.setTime(realTime);
+    }
+    
+    public void delete(Foul foul){
+        
+        //Foul fouls = ff.find(ff);
+        //Foul foul1 = new Foul();
+        //Foul foulDelete2 = fD.get(fD.size()-1);
+        //Foul fouls = foulDelete2;
+        ff.remove(foul);
     }
 
     //public void populate2(){

@@ -89,7 +89,7 @@ public class TimeConverter implements Converter{
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object t) {
         TimeData data = (TimeData) t;
-        String seconds = t.toString();
+        String seconds = data.toString();
         int secs = Integer.parseInt(seconds);
         int remainingSeconds = secs % 60;
         secs = secs - remainingSeconds;

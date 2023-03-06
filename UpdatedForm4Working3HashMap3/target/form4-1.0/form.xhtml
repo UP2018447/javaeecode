@@ -87,7 +87,9 @@
                     <f:facet name="header">
                         <h:outputText value="Time"/>
                     </f:facet>
-                    <h:outputText value="#{foul.time}"/>
+                    <h:outputText value="#{foul.time}">
+                        <!--<f:converter converterId="com.converter.TimeConverter"/>-->
+                    </h:outputText>
                 </h:column>
                 
                 <h:column>
@@ -139,16 +141,18 @@
                     <h:commandButton value="Edit" action="#{start.finish}"/>
                 </h:column>
                 
-                <h:column>
+                <!--<h:column>
                     <f:facet name="header">
                         <h:outputText value="Delete"/>
                     </f:facet>
-                    <h:commandButton value="Delete" action="#{start.finish}"/>
-                </h:column>
+                    <h:commandButton value="Delete" action="#{start.delete}"/>
+                </h:column>-->
                 
                 <f:facet name="footer">
                     <h:outputLabel value="Fouls: "/>
                     <h:outputText value="#{start.count}"/>
+                    <h:inputText value="#{start.record}"/>
+                    <h:commandButton value="Delete" action="#{start.delete}"/>
                 </f:facet>
                 
             </h:dataTable>
