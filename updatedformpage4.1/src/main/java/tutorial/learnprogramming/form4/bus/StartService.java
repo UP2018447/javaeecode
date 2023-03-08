@@ -39,4 +39,14 @@ public class StartService {
         return fouls;
     }
     
+    public void delete(Foul foul){
+        ff.remove(foul);
+    }
+    
+    public void edit(int timeLeft, String official, Foul foul, Foul foul2){
+        foul.setTime(timeLeft);
+        foul.setOfficial1(official);
+        //ff.remove(foul2);
+        ff.edit(foul);
+    }
 }

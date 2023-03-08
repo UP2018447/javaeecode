@@ -5,9 +5,10 @@
     <jta-data-source>java:app/jdbc/adam1</jta-data-source>
     <class>tutorial.learnprogramming.form4.ent.Codes</class>
     <class>tutorial.learnprogramming.form4.ent.FoulCodes</class>
+    <class>tutorial.learnprogramming.form4.ent.Foul</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

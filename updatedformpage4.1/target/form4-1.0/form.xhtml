@@ -132,6 +132,15 @@
                     <h:outputText value="#{foul.decision}"/>
                 </h:column>
                 
+                <f:facet name="footer">
+                    <h:outputLabel value="Fouls: "/>
+                    <h:outputText value="#{start.count}"/>
+                    <h:outputText value=" | Which foul would you like to edit/remove: "/>
+                    <h:inputText value="#{start.record}"/>
+                    <h:commandButton value="Delete" action="#{start.delete}"/>
+                    <h:commandButton value="Edit" action="#{start.edit}"/>
+                </f:facet>
+                
             </h:dataTable>
         
         </h:form>

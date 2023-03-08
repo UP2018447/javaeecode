@@ -214,6 +214,46 @@ public class start {
         
         //populateTable();
     }
+    
+    private String record;
+
+    public String getRecord() {
+        return record;
+    }
+
+    public void setRecord(String record) {
+        this.record = record;
+    }
+    
+    private int count;
+
+    public int getCount() {
+        return foulsAdded.size();
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    
+    public void delete(){
+        int records = Integer.parseInt(record);
+        List<Foul> foulTable = ss.retrieveFoul();
+        Foul foul = foulTable.get(records-1);
+        ss.delete(foul);
+    }
+    
+    public void edit(){
+        String timeLeft = String.valueOf(this.data2);
+        int timeRemaining = Integer.parseInt(timeLeft);
+        setReferee(getOfficial1InString());
+        List<Foul> foulLists = ss.retrieveFoul();
+        int records = Integer.parseInt(record);
+        Foul foul2 = foulLists.get(records-1);
+        int id = records;
+        long longID = id;
+        foul.setId(longID);
+        ss.edit(timeRemaining, referee, foul, foul2);
+    }
 
     public timeData getData2() {
         return data2;
