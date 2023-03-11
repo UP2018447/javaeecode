@@ -33,7 +33,7 @@ import tutorial.learnprogramming.form4.ent.Thing;
 public class Start {
 
     /**
-     * Creates a new instance of start
+     * Creates a new instance of Add
      */
     
     private String foulType;
@@ -221,9 +221,10 @@ public class Start {
         setReferee(getOfficial1InString());
         foul.setTime(timeRemaining);
         foul.setOfficial1(referee);
-        ss.start(foul);
+        business("Add", 0);
+//        ss.Add(foul);
         
-        List<Foul> foulList = ss.retrieveFoul();
+        List<Foul> foulList = business("Retrieve", 0);//ss.retrieveFoul();
         
         for(int i = foulList.size()-1; i >= 0; i--){
             foulsAdded.add(foulList.get(i));
@@ -238,8 +239,14 @@ public class Start {
         final List<String> fcs = fc.getCodes();
         
         for(int i=0; i < fcs.size(); i++){
-            ss.populateFoulCodeTable(i);
+            business("Codes", i);
+//            ss.populateFoulCodeTable(i);
         }
+    }
+    
+    public List<Foul> business(String cmd, int records){
+        List<Foul> retrievedFoul = ss.interact(cmd, records, foul);
+        return retrievedFoul;
     }
     
     public String timeConversion(String time){
@@ -255,22 +262,25 @@ public class Start {
     
     public void delete(){
         int records = Integer.parseInt(record);
-        List<Foul> foulTable = ss.retrieveFoul();
-        Foul foul = foulTable.get(records-1);
-        ss.delete(foul);
+//        List<Foul> foulTable = ss.retrieveFoul();
+//        Foul foul = foulTable.get(records-1);
+        business("Delete", records);
+        //ss.delete(records);
     }
     
     public void edit(){
         String timeLeft = String.valueOf(this.data2);
         int timeRemaining = Integer.parseInt(timeLeft);
         setReferee(getOfficial1InString());
-        List<Foul> foulLists = ss.retrieveFoul();
+        foul.setTime(timeRemaining);
+        foul.setOfficial1(referee);
+//        List<Foul> foulLists = ss.retrieveFoul();
         int records = Integer.parseInt(record);
-        Foul foul2 = foulLists.get(records-1);
         int id = 163 + 82*(records-1);
         long longID = id;
         foul.setId(longID);
-        ss.edit(timeRemaining, referee, foul, foul2);
+        business("Edit", records);
+//        ss.edit(foul);
     }
     
     private String record;

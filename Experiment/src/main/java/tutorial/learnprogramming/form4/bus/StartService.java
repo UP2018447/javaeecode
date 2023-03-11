@@ -40,35 +40,36 @@ public class StartService {
 
     @EJB
     private ThingFacade tf;
+    
+    public List<Foul> interact(String cmd, int records, Foul foul){
+        List<Foul> foulRetrieved = new ArrayList<>();
+        if (null != cmd)switch (cmd) {
+            case "Delete":
+                delete(records);
+                break;
+            case "Edit":
+                edit(foul);
+                break;
+            case "Codes":
+                populateFoulCodeTable(records);
+                break;
+            case "Add":
+                Add(foul);
+                break;
+            case "Retrieve":
+                foulRetrieved = retrieveFoul();
+                break;
+            default:
+                break;
+        }
+        return foulRetrieved;
+    }
 
-    public Foul start(Foul foul) {
-//        foul.setTime(timeLeft);
-//        foul.setOfficial1(official);
+    public Foul Add(Foul foul) {
         ff.create(foul);
         return foul;
     }
 
-    //public void populate(){
-    //Codes foulCodes = new Codes();
-    //cf.create(foulCodes);
-    //}
-    //public void populate2(){
-    //FoulCodes fc = new FoulCodes();
-    //NewFoulCodes nfc = new NewFoulCodes();
-    //List<String> codes = fc.getCodes();
-    //List<String> names = fc.getNames();
-    //List<String> codes2 = nfc.getCodes();
-    //List<String> names2 = nfc.getFoulNames();
-    //for (int i = 0; i < codes.size(); i++){
-    //String code = codes.get(i);
-    //String name = names.get(i);
-    //codes2.add(code);
-    //names2.add(name);
-    //nfc.setCodes(codes2);
-    //nfc.setFoulNames(names2);
-    //nfcf.create(nfc);
-    //}
-    //}
     public void populateFoulCodeTable(int i) {
         NewFoulCodes nfc = new NewFoulCodes();
         FoulCodes fc = new FoulCodes();
@@ -81,14 +82,13 @@ public class StartService {
         nfcf.create(nfc);
     }
     
-    public void delete(Foul foul){
+    public void delete(int records){
+        List<Foul> foulTable = retrieveFoul();
+        Foul foul = foulTable.get(records-1);
         ff.remove(foul);
     }
     
-    public void edit(int timeLeft, String official, Foul foul, Foul foul2){
-        foul.setTime(timeLeft);
-        foul.setOfficial1(official);
-        //ff.remove(foul2);
+    public void edit(Foul foul){;
         ff.edit(foul);
     }
     
