@@ -135,7 +135,7 @@ public class Codes implements Serializable {
         init();
     }
 
-    public static Map<String, String> getCodes() {
+    public Map<String, String> getCodes() {
         return codes;
     }
 

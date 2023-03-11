@@ -219,24 +219,27 @@ public class Start {
         String timeLeft = String.valueOf(this.data2);
         int timeRemaining = Integer.parseInt(timeLeft);
         setReferee(getOfficial1InString());
-        ss.start(timeRemaining, referee, foul);
-        for(int i=0; i < 81; i++){
-            ss.populate3(i);
-        }
+        foul.setTime(timeRemaining);
+        foul.setOfficial1(referee);
+        ss.start(foul);
         
         List<Foul> foulList = ss.retrieveFoul();
         
         for(int i = foulList.size()-1; i >= 0; i--){
-            //Foul fouli = new Foul();
-//            foul = foulList.get(i);
-//            String time1 = foul.getTime();
-//            String time2 = timeConversion(time1);
-//            foul.setTime(time2);
-//            foulList.set(i, foul);
             foulsAdded.add(foulList.get(i));
         }
+    }
+    
+    @PostConstruct
+    public void populateFoulCodes(){
+        FoulCodes fc = new FoulCodes();
+//        Codes c = new Codes();
+//        final Map<String,String> codeMap = c.getCodes();
+        final List<String> fcs = fc.getCodes();
         
-        //populateTable();
+        for(int i=0; i < fcs.size(); i++){
+            ss.populateFoulCodeTable(i);
+        }
     }
     
     public String timeConversion(String time){
@@ -264,7 +267,7 @@ public class Start {
         List<Foul> foulLists = ss.retrieveFoul();
         int records = Integer.parseInt(record);
         Foul foul2 = foulLists.get(records-1);
-        int id = 1 + 82*(records-1);
+        int id = 163 + 82*(records-1);
         long longID = id;
         foul.setId(longID);
         ss.edit(timeRemaining, referee, foul, foul2);

@@ -41,9 +41,9 @@ public class StartService {
     @EJB
     private ThingFacade tf;
 
-    public Foul start(int timeLeft, String official, Foul foul) {
-        foul.setTime(timeLeft);
-        foul.setOfficial1(official);
+    public Foul start(Foul foul) {
+//        foul.setTime(timeLeft);
+//        foul.setOfficial1(official);
         ff.create(foul);
         return foul;
     }
@@ -69,7 +69,7 @@ public class StartService {
     //nfcf.create(nfc);
     //}
     //}
-    public void populate3(int i) {
+    public void populateFoulCodeTable(int i) {
         NewFoulCodes nfc = new NewFoulCodes();
         FoulCodes fc = new FoulCodes();
         List<String> fouls = fc.getNames();

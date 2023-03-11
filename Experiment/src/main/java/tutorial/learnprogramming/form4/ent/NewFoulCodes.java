@@ -16,7 +16,7 @@ import javax.persistence.Id;
  *
  * @author adamt
  */
-@Entity
+@Entity(name = "FoulCodesList")
 public class NewFoulCodes implements Serializable {
 
     private static final long serialVersionUID = 1L;
