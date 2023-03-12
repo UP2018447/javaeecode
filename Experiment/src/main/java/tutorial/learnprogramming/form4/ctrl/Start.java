@@ -21,7 +21,6 @@ import tutorial.learnprogramming.form4.ent.Codes;
 import tutorial.learnprogramming.form4.ent.Foul;
 import tutorial.learnprogramming.form4.ent.FoulCodes;
 import tutorial.learnprogramming.form4.ent.Positions;
-import tutorial.learnprogramming.form4.ent.Thing;
 //import tutorial.learnprogramming.form4.ent.foulRecord;
 
 /**
@@ -234,13 +233,10 @@ public class Start {
     @PostConstruct
     public void populateFoulCodes(){
         FoulCodes fc = new FoulCodes();
-//        Codes c = new Codes();
-//        final Map<String,String> codeMap = c.getCodes();
         final List<String> fcs = fc.getCodes();
         
         for(int i=0; i < fcs.size(); i++){
             business("Codes", i);
-//            ss.populateFoulCodeTable(i);
         }
     }
     
@@ -262,10 +258,7 @@ public class Start {
     
     public void delete(){
         int records = Integer.parseInt(record);
-//        List<Foul> foulTable = ss.retrieveFoul();
-//        Foul foul = foulTable.get(records-1);
         business("Delete", records);
-        //ss.delete(records);
     }
     
     public void edit(){

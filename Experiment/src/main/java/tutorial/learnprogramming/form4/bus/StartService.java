@@ -6,19 +6,16 @@ package tutorial.learnprogramming.form4.bus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import tutorial.learnprogramming.form4.ent.Codes;
 import tutorial.learnprogramming.form4.ent.Foul;
 import tutorial.learnprogramming.form4.ent.FoulCodes;
+import tutorial.learnprogramming.form4.ent.Game;
 import tutorial.learnprogramming.form4.ent.NewFoulCodes;
-import tutorial.learnprogramming.form4.ent.Thing;
 import tutorial.learnprogramming.form4.pers.CodesFacade;
 import tutorial.learnprogramming.form4.pers.FoulFacade;
+import tutorial.learnprogramming.form4.pers.GameFacade;
 import tutorial.learnprogramming.form4.pers.NewFoulCodesFacade;
-import tutorial.learnprogramming.form4.pers.ThingFacade;
 
 /**
  *
@@ -37,9 +34,9 @@ public class StartService {
 
     @EJB
     private NewFoulCodesFacade nfcf;
-
+    
     @EJB
-    private ThingFacade tf;
+    private GameFacade gf;
     
     public List<Foul> interact(String cmd, int records, Foul foul){
         List<Foul> foulRetrieved = new ArrayList<>();
@@ -67,6 +64,14 @@ public class StartService {
 
     public Foul Add(Foul foul) {
         ff.create(foul);
+//        Game g = new Game();
+//        List<Foul> foulList = g.getFoulList();
+//        foulList.add(foul);
+//        g.setFoulList(foulList);
+//        gf.edit(g);
+//        List<Foul> gameFoul = new ArrayList<>();
+//        gameFoul = g.getFoulList();
+//        gameFoul.add(foul)
         return foul;
     }
 
@@ -88,7 +93,7 @@ public class StartService {
         ff.remove(foul);
     }
     
-    public void edit(Foul foul){;
+    public void edit(Foul foul){
         ff.edit(foul);
     }
     
