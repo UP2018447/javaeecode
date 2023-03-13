@@ -4,11 +4,15 @@
  */
 package tutorial.learnprogramming.form4.ent;
 
+import java.io.Serializable;
+import javax.persistence.Embeddable;
+
 /**
  *
  * @author adamt
  */
-public class TimeData {
+@Embeddable
+public class TimeData implements Serializable {
     private int seconds;
 
     public int getSeconds() {

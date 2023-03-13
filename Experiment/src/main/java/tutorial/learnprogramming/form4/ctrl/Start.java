@@ -215,10 +215,10 @@ public class Start {
     private StartService ss;
     
     public void action(){
-        String timeLeft = String.valueOf(this.data2);
-        int timeRemaining = Integer.parseInt(timeLeft);
+//        String timeLeft = String.valueOf(this.data2);
+//        int timeRemaining = Integer.parseInt(timeLeft);
         setReferee(getOfficial1InString());
-        foul.setTime(timeRemaining);
+//        foul.setTime(timeRemaining);
         foul.setOfficial1(referee);
         business("Add", 0);
 //        ss.Add(foul);
@@ -262,10 +262,10 @@ public class Start {
     }
     
     public void edit(){
-        String timeLeft = String.valueOf(this.data2);
-        int timeRemaining = Integer.parseInt(timeLeft);
+//        String timeLeft = String.valueOf(this.data2);
+//        int timeRemaining = Integer.parseInt(timeLeft);
         setReferee(getOfficial1InString());
-        foul.setTime(timeRemaining);
+//        foul.setTime(timeRemaining);
         foul.setOfficial1(referee);
 //        List<Foul> foulLists = ss.retrieveFoul();
         int records = Integer.parseInt(record);
@@ -274,6 +274,15 @@ public class Start {
         foul.setId(longID);
         business("Edit", records);
 //        ss.edit(foul);
+    }
+    
+    public List<String> foulCodes(){
+        List<String> codes = new ArrayList<>();
+        for(int i = 0; i < 81; i++){
+            String f = ss.Fouls();
+            codes.add(f);
+        }
+        return codes;
     }
     
     private String record;

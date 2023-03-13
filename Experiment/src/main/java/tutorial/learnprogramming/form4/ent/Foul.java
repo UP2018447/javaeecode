@@ -5,6 +5,7 @@
 package tutorial.learnprogramming.form4.ent;
 
 import java.io.Serializable;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -50,13 +51,14 @@ public class Foul implements Serializable{
         this.quarter = quarter;
     }
     
-    private int timeLeftInQtrAsSeconds;
+    @Embedded
+    private TimeData timeLeftInQtrAsSeconds;
 
-    public int getTime() {
+    public TimeData getTime() {
         return timeLeftInQtrAsSeconds;
     }
 
-    public void setTime(int timeLeftInQtrAsSeconds) {
+    public void setTime(TimeData timeLeftInQtrAsSeconds) {
         this.timeLeftInQtrAsSeconds = timeLeftInQtrAsSeconds;
     }
     

@@ -74,6 +74,13 @@ public class StartService {
 //        gameFoul.add(foul)
         return foul;
     }
+    
+    public String Fouls(){
+        List<NewFoulCodes> nfc = nfcf.findAll();
+        NewFoulCodes nf = nfc.get(0);
+        String code = nf.getFoulCode();
+        return code;
+    }
 
     public void populateFoulCodeTable(int i) {
         NewFoulCodes nfc = new NewFoulCodes();
