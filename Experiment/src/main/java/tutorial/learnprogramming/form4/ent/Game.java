@@ -16,12 +16,12 @@ import javax.persistence.OneToMany;
  *
  * @author adamt
  */
-@Entity(name = "Game3")
+@Entity(name = "Game4")
 public class Game implements Serializable{
     
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     public Long getId() {

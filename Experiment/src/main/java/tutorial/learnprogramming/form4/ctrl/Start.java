@@ -20,6 +20,7 @@ import tutorial.learnprogramming.form4.ent.Codes;
 //import javax.annotation.PostConstruct;
 import tutorial.learnprogramming.form4.ent.Foul;
 import tutorial.learnprogramming.form4.ent.FoulCodes;
+import tutorial.learnprogramming.form4.ent.Game;
 import tutorial.learnprogramming.form4.ent.Positions;
 //import tutorial.learnprogramming.form4.ent.foulRecord;
 
@@ -220,6 +221,8 @@ public class Start {
         setReferee(getOfficial1InString());
 //        foul.setTime(timeRemaining);
         foul.setOfficial1(referee);
+        Game g = new Game();
+        g.setId(gameID);
         business("Add", 0);
 //        ss.addFoul(foul);
         
@@ -241,7 +244,9 @@ public class Start {
     }
     
     public List<Foul> business(String cmd, int records){
-        List<Foul> retrievedFoul = ss.interact(cmd, records, foul);
+        Game g = new Game();
+        g.setId(gameID);
+        List<Foul> retrievedFoul = ss.interact(cmd, records, foul, g);
         return retrievedFoul;
     }
     
@@ -293,6 +298,16 @@ public class Start {
 
     public void setRecord(String record) {
         this.record = record;
+    }
+    
+    private Long gameID;
+
+    public Long getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(Long gameID) {
+        this.gameID = gameID;
     }
     
     private int count;

@@ -10,7 +10,7 @@
     <h:body>
         <h:form>
             
-            <h:panelGrid columns="8" border="1" id="grid">
+            <h:panelGrid columns="9" border="1" id="grid">
                 <f:facet name="header">
                     <h:outputText value="Form"/>
                 </f:facet>
@@ -22,6 +22,7 @@
                 <h:outputLabel value="Player Position"/>
                 <h:outputLabel value="Officials"/>
                 <h:outputLabel value="Decision"/>
+                <h:outputLabel value="Game ID"/>
                 
                 <h:inputText value="#{start.foul.quarter}" id="quarter" style="width: 100px" required="true"/>
                 
@@ -63,6 +64,8 @@
                     <f:selectItem itemValue="Declined" itemLabel="Declined"/>
                     <f:selectItem itemValue="Offset" itemLabel="Offset"/>
                 </p:selectOneButton>
+                
+                <h:inputText value="#{start.gameID}"/>
                 
                 <f:facet name="footer">
                     <h:commandButton value="Add Foul" action="#{start.action}">
