@@ -24,8 +24,8 @@ import tutorial.learnprogramming.form4.pers.NewFoulCodesFacade;
 @Stateless
 public class StartService {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    // addFoul business logic below. (Right-click in editor and choose
+    // "Insert Code > addFoul Business Method")
     @EJB
     private FoulFacade ff;
 
@@ -51,7 +51,7 @@ public class StartService {
                 populateFoulCodeTable(records);
                 break;
             case "Add":
-                Add(foul);
+                addFoul(foul);
                 break;
             case "Retrieve":
                 foulRetrieved = retrieveFoul();
@@ -62,16 +62,14 @@ public class StartService {
         return foulRetrieved;
     }
 
-    public Foul Add(Foul foul) {
+    public Foul addFoul(Foul foul) {
+        Game g = new Game();
+        List<Foul> fouls = retrieveFoul();
+        fouls.add(foul);
+        g.setFoulList(fouls);
+        foul.setGame(g);
+        gf.create(g);
         ff.create(foul);
-//        Game g = new Game();
-//        List<Foul> foulList = g.getFoulList();
-//        foulList.add(foul);
-//        g.setFoulList(foulList);
-//        gf.edit(g);
-//        List<Foul> gameFoul = new ArrayList<>();
-//        gameFoul = g.getFoulList();
-//        gameFoul.add(foul)
         return foul;
     }
     

@@ -32,7 +32,7 @@ import tutorial.learnprogramming.form4.ent.Positions;
 public class Start {
 
     /**
-     * Creates a new instance of Add
+     * Creates a new instance of addFoul
      */
     
     private String foulType;
@@ -221,7 +221,7 @@ public class Start {
 //        foul.setTime(timeRemaining);
         foul.setOfficial1(referee);
         business("Add", 0);
-//        ss.Add(foul);
+//        ss.addFoul(foul);
         
         List<Foul> foulList = business("Retrieve", 0);//ss.retrieveFoul();
         

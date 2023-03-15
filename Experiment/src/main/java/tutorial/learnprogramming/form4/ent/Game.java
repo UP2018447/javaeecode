@@ -32,7 +32,7 @@ public class Game implements Serializable{
         this.id = id;
     }
     
-    @OneToMany
+    @OneToMany(mappedBy = "game")
     private List<Foul> foulList;
 
     public List<Foul> getFoulList() {
