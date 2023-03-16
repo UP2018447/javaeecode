@@ -5,6 +5,7 @@
 package tutorial.learnprogramming.form4.bus;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -63,17 +64,30 @@ public class StartService {
     }
 
     public Foul addFoul(Foul foul, Game g) {
-//        Game g = new Game();
+//        Game g2 = new Game();
+//        Long gameID = g.getId();
+//        Foul f = foul;
+//        Game game = new Game();
+        foul.setGame(g);
+//        ff.create(f);
         List<Foul> fouls = retrieveFoul();
         fouls.add(foul);
+//        Game game = new Game();
+//        g.setId(gameID);
         g.setFoulList(fouls);
-        foul.setGame(g);
+        Game edit = gf.edit(g);
+//        gf.edit(g);
+//        String foulList = String.valueOf(foul);
+//        g.setFoulInString(foulList);
+//        g.setFoulList(fouls);
         
-        g.setFoulList(fouls);
         
-        gf.edit(g);
-        ff.create(foul);
+        
         return foul;
+    }
+    
+    public Game addGame(Game g){
+        return g;
     }
     
     public String Fouls(){
@@ -97,6 +111,11 @@ public class StartService {
     
     public void delete(int records){
         List<Foul> foulTable = retrieveFoul();
+//        Game g = gf.find(1);
+//        List<Foul> games = g.getFoulList();
+//        games.remove(records);
+//        g.setFoulList(games);
+//        gf.edit(g);
         Foul foul = foulTable.get(records-1);
         ff.remove(foul);
     }

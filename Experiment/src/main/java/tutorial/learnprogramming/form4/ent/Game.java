@@ -6,6 +6,7 @@ package tutorial.learnprogramming.form4.ent;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +33,7 @@ public class Game implements Serializable{
         this.id = id;
     }
     
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade={CascadeType.PERSIST, CascadeType.ALL})
     private List<Foul> foulList;
 
     public List<Foul> getFoulList() {
@@ -41,6 +42,12 @@ public class Game implements Serializable{
 
     public void setFoulList(List<Foul> foulList) {
         this.foulList = foulList;
+    }
+    
+    public void addFoulList(Foul foul){
+        foul.setGame(this);
+        foulList.add(foul);
+        
     }
     
     @Override

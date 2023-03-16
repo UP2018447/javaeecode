@@ -68,6 +68,16 @@ public class Start {
         this.foul = foul;
     }
     
+    private Game g = new Game();
+
+    public Game getG() {
+        return g;
+    }
+
+    public void setG(Game g) {
+        this.g = g;
+    }
+    
     //private Codes codes = new Codes();
 
     //public Codes getCodes() {
@@ -221,8 +231,8 @@ public class Start {
         setReferee(getOfficial1InString());
 //        foul.setTime(timeRemaining);
         foul.setOfficial1(referee);
-        Game g = new Game();
-        g.setId(gameID);
+//        Game g = new Game();
+//        g.setId(gameID);
         business("Add", 0);
 //        ss.addFoul(foul);
         
@@ -244,7 +254,7 @@ public class Start {
     }
     
     public List<Foul> business(String cmd, int records){
-        Game g = new Game();
+//        Game g = new Game();
         g.setId(gameID);
         List<Foul> retrievedFoul = ss.interact(cmd, records, foul, g);
         return retrievedFoul;
