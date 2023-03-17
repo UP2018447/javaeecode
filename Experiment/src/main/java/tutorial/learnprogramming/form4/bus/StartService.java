@@ -75,20 +75,18 @@ public class StartService {
 //        Game game = new Game();
 //        g.setId(gameID);
         g.setFoulList(fouls);
-        Game edit = gf.edit(g);
-//        gf.edit(g);
+//        Game edit = gf.edit(g);
+        gf.edit(g);
 //        String foulList = String.valueOf(foul);
 //        g.setFoulInString(foulList);
 //        g.setFoulList(fouls);
         
-        
-        
         return foul;
     }
     
-    public Game addGame(Game g){
-        return g;
-    }
+//    public Game addGame(Game g){
+//        return g;
+//    }
     
     public String Fouls(){
         List<NewFoulCodes> nfc = nfcf.findAll();
@@ -113,7 +111,7 @@ public class StartService {
         List<Foul> foulTable = retrieveFoul();
 //        Game g = gf.find(1);
 //        List<Foul> games = g.getFoulList();
-//        games.remove(records);
+//        games.remove(records-1);
 //        g.setFoulList(games);
 //        gf.edit(g);
         Foul foul = foulTable.get(records-1);
