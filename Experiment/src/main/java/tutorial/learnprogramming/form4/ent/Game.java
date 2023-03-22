@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 /**
@@ -34,6 +35,7 @@ public class Game implements Serializable{
     }
     
     @OneToMany(mappedBy = "game", cascade={CascadeType.PERSIST, CascadeType.ALL})
+//    @JoinColumn(name = "Foul_ID", referencedColumnName = "ID")
     private List<Foul> foulList;
 
     public List<Foul> getFoulList() {
@@ -48,6 +50,88 @@ public class Game implements Serializable{
         foul.setGame(this);
         foulList.add(foul);
         
+    }
+    
+    private String referee;
+    private String umpire;
+    private String headLinesman;
+    private String lineJudge;
+    private String backJudge;
+    private String forwardJudge;
+    private String sideJudge;
+    private String centreJudge;
+    private String videoJudge;
+
+    public String getReferee() {
+        return referee;
+    }
+
+    public void setReferee(String referee) {
+        this.referee = referee;
+    }
+
+    public String getUmpire() {
+        return umpire;
+    }
+
+    public void setUmpire(String umpire) {
+        this.umpire = umpire;
+    }
+
+    public String getHeadLinesman() {
+        return headLinesman;
+    }
+
+    public void setHeadLinesman(String headLinesman) {
+        this.headLinesman = headLinesman;
+    }
+
+    public String getLineJudge() {
+        return lineJudge;
+    }
+
+    public void setLineJudge(String lineJudge) {
+        this.lineJudge = lineJudge;
+    }
+
+    public String getBackJudge() {
+        return backJudge;
+    }
+
+    public void setBackJudge(String backJudge) {
+        this.backJudge = backJudge;
+    }
+
+    public String getForwardJudge() {
+        return forwardJudge;
+    }
+
+    public void setForwardJudge(String forwardJudge) {
+        this.forwardJudge = forwardJudge;
+    }
+
+    public String getSideJudge() {
+        return sideJudge;
+    }
+
+    public void setSideJudge(String sideJudge) {
+        this.sideJudge = sideJudge;
+    }
+
+    public String getCentreJudge() {
+        return centreJudge;
+    }
+
+    public void setCentreJudge(String centreJudge) {
+        this.centreJudge = centreJudge;
+    }
+
+    public String getVideoJudge() {
+        return videoJudge;
+    }
+
+    public void setVideoJudge(String videoJudge) {
+        this.videoJudge = videoJudge;
     }
     
     @Override
