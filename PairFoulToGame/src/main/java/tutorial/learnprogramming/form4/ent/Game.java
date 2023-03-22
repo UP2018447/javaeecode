@@ -19,7 +19,7 @@ import javax.persistence.OneToOne;
  *
  * @author adamt
  */
-@Entity(name = "Game4")
+@Entity(name = "Game5")
 public class Game implements Serializable{
 
     @OneToOne
@@ -45,7 +45,6 @@ public class Game implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
-    
     
     @Override
     public int hashCode() {
