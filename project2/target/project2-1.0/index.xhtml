@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:panelGrid columns="8" border="1">
+                <h:outputLabel value="Quarter"/>
+                <h:outputLabel value="Time"/>
+                <h:outputLabel value="Team"/>
+                <h:outputLabel value="Foul"/>
+                <h:outputLabel value="Player"/>
+                <h:outputLabel value="Position"/>
+                <h:outputLabel value="Official"/>
+                <h:outputLabel value="Decision"/>
+                
+                <h:inputText value="#{start.foul.quarter}" required="true"/>
+                <h:inputText value="#{start.foul.time}" required="true"/>
+                <h:inputText value="#{start.foul.team}" required="true"/>
+                <h:inputText value="#{start.foul.foul}" required="true"/>
+                <h:inputText value="#{start.foul.player}" required="true"/>
+                <h:inputText value="#{start.foul.position}" required="true"/>
+                <h:inputText value="#{start.foul.official}" required="true"/>
+                <h:inputText value="#{start.foul.decision}" required="true"/>
+                
+                <f:facet name="footer">
+                    <h:commandButton value="Submit" action="#{start.action}"/>
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
