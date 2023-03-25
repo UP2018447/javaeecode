@@ -10,7 +10,7 @@
     <h:body>
         <h:form>
             
-            <h:panelGrid columns="9" border="1" id="grid">
+            <h:panelGrid columns="10" border="1" id="grid">
                 <f:facet name="header">
                     <h:outputText value="Form"/>
                 </f:facet>
@@ -18,35 +18,40 @@
                 <h:outputLabel value="Time left"/>
                 <h:outputLabel value="Team"/>
                 <h:outputLabel value="Foul Code"/>
+                <h:outputLabel value="Foul Code text"/>
                 <h:outputLabel value="Player Number"/>
                 <h:outputLabel value="Player Position"/>
                 <h:outputLabel value="Officials"/>
                 <h:outputLabel value="Decision"/>
                 <h:outputLabel value="Game ID"/>
                 
-                <h:inputText value="#{start.foul.quarter}" id="quarter" style="width: 100px" required="true"/>
+                <h:inputText value="#{start.foul.quarter}" id="quarter" style="width: 100px"/>
                 
-                <h:inputText id="data2" value="#{start.foul.time}" style="width: 100px" required="true">
+                <h:inputText id="data2" value="#{start.foul.time}" style="width: 100px">
                     <f:converter converterId="com.converter.TimeConverter"/>
                 </h:inputText>
                 
-                <p:selectOneButton  value="#{start.foul.homeOrAway}" style="width: 160px" required="true">
+                <p:selectOneButton  value="#{start.foul.homeOrAway}" style="width: 160px">
                     <f:selectItem itemValue="Home" itemLabel="Home"/>
                     <f:selectItem itemValue="Visitor" itemLabel="Visitor"/>
                 </p:selectOneButton>
                 
-                <p:selectOneMenu id="test" value="#{start.foul.foulName}" editable="true" filter="true" filterMatchMode="startsWith" style="width: 120px" required="true">
+                <p:selectOneMenu id="test" value="#{start.foul.foulName}" editable="true" filter="true" filterMatchMode="startsWith" style="width: 120px">
                     <f:selectItems value="#{start.fouls}" itemLabel="#{fouls.key}" itemValue="#{fouls.value}"/>
-                    <!--<f:ajax event="keypress" execute="@this" render="@form" listener="start.foulCodes"/>-->
                 </p:selectOneMenu>
                 
-                <h:inputText value="#{start.foul.player}" style="width: 100px"/>
+                <h:inputText value="#{start.updatedFoul}">
+                    <f:ajax event="keypress" execute="@this" render="@form" listener="#{start.updateComboBox}"/>
+                </h:inputText>
+                
+                <h:inputText value="#{start.foul.player}" style="width: 100px">
+                </h:inputText>
                 
                 <p:selectOneMenu value="#{start.foul.position}">
                     <f:selectItems value="#{start.positions}" itemLabel="#{positions.key}" itemValue="#{positions.value}"/>
                 </p:selectOneMenu>
                 
-                <p:selectManyButton value="#{start.official1}" style="width: 510px" required="true">
+                <p:selectManyButton value="#{start.official1}" style="width: 510px">
                     <f:selectItem itemValue="R" itemLabel="R"/>
                     <f:selectItem itemValue="Um" itemLabel="Um"/>
                     <f:selectItem itemValue="HL" itemLabel="HL"/>
@@ -59,7 +64,7 @@
                     <f:selectItem itemValue="N/A" itemLabel="N/A"/>
                 </p:selectManyButton>
                 
-                <p:selectOneButton value="#{start.foul.decision}" style="width: 280px" required="true">
+                <p:selectOneButton value="#{start.foul.decision}" style="width: 280px">
                     <f:selectItem itemValue="Accepted" itemLabel="Accepted"/>
                     <f:selectItem itemValue="Declined" itemLabel="Declined"/>
                     <f:selectItem itemValue="Offset" itemLabel="Offset"/>
@@ -68,10 +73,8 @@
                 <h:inputText value="#{start.gameID}"/>
                 
                 <f:facet name="footer">
-                    <h:commandButton value="Add Foul" action="#{start.action}">
-                    </h:commandButton>
-                    <h:commandButton value="Finish">
-                    </h:commandButton>
+                    <h:commandButton value="Check" action="#{start.checkForm}"/>
+                    <h:commandButton value="Add Foul" action="#{start.action}" rendered="#{start.flag}"/>
                 </f:facet>
             </h:panelGrid>
             <br/>

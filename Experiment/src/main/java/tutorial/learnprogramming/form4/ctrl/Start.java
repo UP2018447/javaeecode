@@ -4,6 +4,7 @@
  */
 package tutorial.learnprogramming.form4.ctrl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.ejb.EJB;
@@ -13,10 +14,14 @@ import tutorial.learnprogramming.form4.bus.StartService;
 import tutorial.learnprogramming.form4.ent.TimeData;
 //import tutorial.learnprogramming.form4.ent.Fouls;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import tutorial.learnprogramming.form4.ent.Codes;
+import tutorial.learnprogramming.form4.ent.Flag;
 //import javax.annotation.PostConstruct;
 import tutorial.learnprogramming.form4.ent.Foul;
 import tutorial.learnprogramming.form4.ent.FoulCodes;
@@ -29,8 +34,8 @@ import tutorial.learnprogramming.form4.ent.Positions;
  * @author adamt
  */
 @Named(value = "start")
-@RequestScoped
-public class Start {
+@SessionScoped
+public class Start implements Serializable{
 
     /**
      * Creates a new instance of addFoul
@@ -54,6 +59,8 @@ public class Start {
     private String referee;
     private Map<String,String> fouls;
     private Map<String,String> positions;
+    private String updatedFoul;
+    private Map<String,String> updatedFouls;
     
     public Start() {
     }
@@ -77,21 +84,26 @@ public class Start {
     public void setG(Game g) {
         this.g = g;
     }
-    
+
+    public String getUpdatedFoul() {
+        return updatedFoul;
+    }
+
     //private Codes codes = new Codes();
-
     //public Codes getCodes() {
-        //return codes;
+    //return codes;
     //}
-
     //public void setCodes(Codes codes) {
-        //this.codes = codes;
+    //this.codes = codes;
     //}
+    public void setUpdatedFoul(String updatedFoul) {
+        this.updatedFoul = updatedFoul;
+    }
 
     public Map<String,String> getPositions() {
-        positions = new HashMap<>();
-        Positions pL = new Positions();
-        pL.getPositions(positions);
+//        positions = new HashMap<>();
+        Positions pos = new Positions();
+        positions = pos.getPositions();
         return positions;
     }
 
@@ -100,16 +112,43 @@ public class Start {
     }
     
     public Map<String,String> getFouls(){
-        fouls = new HashMap<>();
-        //Fouls fL = new Fouls();
+//        fouls = new HashMap<>();
         Codes codes = new Codes();
         fouls = codes.getCodes();
-        //fL.getFouls(fouls);
         return fouls;
     }
 
     public void setFouls(Map<String, String> fouls) {
         this.fouls = fouls;
+    }
+    
+    public void updateComboBox(){
+        updatedFouls = fouls;
+        Set<String> updatedFoulCodes = updatedFouls.keySet();
+        List<String> listOfFoulCodes = new ArrayList<>();
+        for(String code : updatedFoulCodes){
+            listOfFoulCodes.add(code);
+        }
+        for(Iterator<String> iterator = listOfFoulCodes.iterator(); iterator.hasNext();){
+            if(!iterator.next().contains(updatedFoul)){
+                iterator.remove();
+            }
+        }
+        List<String> updatedFoulNames = new ArrayList<>();
+        for(int i = 0; i < listOfFoulCodes.size(); i++){
+            String updatedFoulCode = listOfFoulCodes.get(i);
+            String updatedFoulName = updatedFouls.get(updatedFoulCode);
+            updatedFoulNames.add(updatedFoulName);
+        }
+        for(int i = 0; i < listOfFoulCodes.size(); i++){
+            updatedFouls.put(listOfFoulCodes.get(i), updatedFoulNames.get(i));
+        }
+        fouls = updatedFouls;
+    }
+    
+    public String nothing(){
+        quarter = quarter + quarter;
+        return "";
     }
 
     public String getPlayerPosition() {
@@ -241,6 +280,23 @@ public class Start {
         for(int i = foulList.size()-1; i >= 0; i--){
             foulsAdded.add(foulList.get(i));
         }
+        flag = false;
+    }
+    
+    public void checkForm(){
+        if (!foul.getQuarter().isEmpty()){
+            flag = true;
+        }
+    }
+    
+    private boolean flag = false;
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
     
     @PostConstruct

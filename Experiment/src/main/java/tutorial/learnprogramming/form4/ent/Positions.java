@@ -4,6 +4,7 @@
  */
 package tutorial.learnprogramming.form4.ent;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -11,39 +12,55 @@ import java.util.Map;
  * @author adamt
  */
 public class Positions {
-    
-    public Map<String,String> getPositions(Map<String,String> positionList){
-        positionList.put("QB","QB");
-        positionList.put("RB","RB");
-        positionList.put("FB","FB");
-        positionList.put("WR","WR");
-        positionList.put("TE","TE");
-        positionList.put("OL","OL");
-        positionList.put("C","C");
-        positionList.put("G","G");
-        positionList.put("LG","LG");
-        positionList.put("RG","RG");
-        positionList.put("T", "T");
-        positionList.put("LT", "LT");
-        positionList.put("RT", "RT");
-        positionList.put("K", "K");
-        positionList.put("KR", "KR");
-        positionList.put("DL", "DL");
-        positionList.put("DE", "DE");
-        positionList.put("DT", "DT");
-        positionList.put("NT", "NT");
-        positionList.put("LB", "LB");
-        positionList.put("ILB", "ILB");
-        positionList.put("OLB", "OLB");
-        positionList.put("MLB", "MLB");
-        positionList.put("DB", "DB");
-        positionList.put("CB", "CB");
-        positionList.put("FS", "FS");
-        positionList.put("SS", "SS");
-        positionList.put("S", "S");
-        positionList.put("P", "P");
-        positionList.put("PR", "PR");
-        return positionList;
+
+    private static Map<String, String> positions = null;
+
+    public Positions() {
+        init();
     }
-    
+
+    private void init() {
+        if (positions == null) {
+            positions = new HashMap<>();
+            positions.put("QB", "QB");
+            positions.put("RB", "RB");
+            positions.put("FB", "FB");
+            positions.put("WR", "WR");
+            positions.put("TE", "TE");
+            positions.put("OL", "OL");
+            positions.put("C", "C");
+            positions.put("G", "G");
+            positions.put("LG", "LG");
+            positions.put("RG", "RG");
+            positions.put("T", "T");
+            positions.put("LT", "LT");
+            positions.put("RT", "RT");
+            positions.put("K", "K");
+            positions.put("KR", "KR");
+            positions.put("DL", "DL");
+            positions.put("DE", "DE");
+            positions.put("DT", "DT");
+            positions.put("NT", "NT");
+            positions.put("LB", "LB");
+            positions.put("ILB", "ILB");
+            positions.put("OLB", "OLB");
+            positions.put("MLB", "MLB");
+            positions.put("DB", "DB");
+            positions.put("CB", "CB");
+            positions.put("FS", "FS");
+            positions.put("SS", "SS");
+            positions.put("S", "S");
+            positions.put("P", "P");
+            positions.put("PR", "PR");
+        }
+    }
+
+    public Map<String, String> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(Map<String, String> positions) {
+        Positions.positions = positions;
+    }
+
 }

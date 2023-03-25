@@ -9,11 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import tutorial.learnprogramming.form4.ent.Flag;
 import tutorial.learnprogramming.form4.ent.Foul;
 import tutorial.learnprogramming.form4.ent.FoulCodes;
 import tutorial.learnprogramming.form4.ent.Game;
 import tutorial.learnprogramming.form4.ent.NewFoulCodes;
 import tutorial.learnprogramming.form4.pers.CodesFacade;
+import tutorial.learnprogramming.form4.pers.FlagFacade;
 import tutorial.learnprogramming.form4.pers.FoulFacade;
 import tutorial.learnprogramming.form4.pers.GameFacade;
 import tutorial.learnprogramming.form4.pers.NewFoulCodesFacade;
@@ -29,40 +31,46 @@ public class StartService {
     // "Insert Code > addFoul Business Method")
     @EJB
     private FoulFacade ff;
-
+    
+    @EJB
+    private FlagFacade flf;
+    
     @EJB
     private CodesFacade cf;
-
+    
     @EJB
     private NewFoulCodesFacade nfcf;
     
     @EJB
     private GameFacade gf;
     
-    public List<Foul> interact(String cmd, int records, Foul foul, Game g){
+    public List<Foul> interact(String cmd, int records, Foul foul, Game g) {
         List<Foul> foulRetrieved = new ArrayList<>();
-        if (null != cmd)switch (cmd) {
-            case "Delete":
-                delete(records);
-                break;
-            case "Edit":
-                edit(foul);
-                break;
-            case "Codes":
-                populateFoulCodeTable(records);
-                break;
-            case "Add":
-                addFoul(foul, g);
-                break;
-            case "Retrieve":
-                foulRetrieved = retrieveFoul();
-                break;
-            default:
-                break;
+        if (null != cmd) {
+            switch (cmd) {
+                case "Delete":
+                    delete(records);
+                    break;
+                case "Edit":
+                    edit(foul);
+                    break;
+                case "Codes":
+                    populateFoulCodeTable(records);
+                    break;
+                case "Add":
+                    addFoul(foul, g);
+                    break;
+                case "Retrieve":
+                    foulRetrieved = retrieveFoul();
+                    break;
+                default:
+                    break;
+            }
         }
         return foulRetrieved;
     }
-
+    
+    
     public Foul addFoul(Foul foul, Game g) {
 //        Game g2 = new Game();
 //        Long gameID = g.getId();
@@ -83,18 +91,17 @@ public class StartService {
         
         return foul;
     }
-    
+
 //    public Game addGame(Game g){
 //        return g;
 //    }
-    
-    public String Fouls(){
+    public String Fouls() {
         List<NewFoulCodes> nfc = nfcf.findAll();
         NewFoulCodes nf = nfc.get(0);
         String code = nf.getFoulCode();
         return code;
     }
-
+    
     public void populateFoulCodeTable(int i) {
         NewFoulCodes nfc = new NewFoulCodes();
         FoulCodes fc = new FoulCodes();
@@ -107,22 +114,22 @@ public class StartService {
         nfcf.create(nfc);
     }
     
-    public void delete(int records){
+    public void delete(int records) {
         List<Foul> foulTable = retrieveFoul();
 //        Game g = gf.find(1);
 //        List<Foul> games = g.getFoulList();
 //        games.remove(records-1);
 //        g.setFoulList(games);
 //        gf.edit(g);
-        Foul foul = foulTable.get(records-1);
+        Foul foul = foulTable.get(records - 1);
         ff.remove(foul);
     }
     
-    public void edit(Foul foul){
+    public void edit(Foul foul) {
         ff.edit(foul);
     }
     
-    public List<Foul> retrieveFoul(){
+    public List<Foul> retrieveFoul() {
         List<Foul> fouls = ff.findAll();
         return fouls;
     }
