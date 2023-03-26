@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h1>Stumps</h1>
+            <h2>Login as admin</h2>
+            
+            <h:panelGrid columns="2">
+                <f:facet name="header">
+                    <h:outputText value="Login as admin"/>
+                </f:facet>
+                
+                <h:outputLabel value="Username"/>
+                <h:inputText value="#{start.admin.username}"/>
+                <h:outputLabel value="password"/>
+                <h:inputText value="#{start.admin.password}"/>
+                
+                <f:facet name="footer">
+                    <h:commandButton value="Check details" action="#{start.checkAdminCredentials}"/>
+                    <h:commandButton value="Login" action="admin" rendered="#{start.adminRender}"/>
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
