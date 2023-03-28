@@ -47,7 +47,7 @@ public class StartService {
                     delete(records);
                     break;
                 case "Edit":
-                    edit(foul);
+                    edit(foul, g, records);
                     break;
                 case "Codes":
                     populateFoulCodeTable(records);
@@ -87,15 +87,6 @@ public class StartService {
         return foul;
     }
 
-//    public Game addGame(Game g){
-//        return g;
-//    }
-    public String Fouls() {
-        List<NewFoulCodes> nfc = nfcf.findAll();
-        NewFoulCodes nf = nfc.get(0);
-        String code = nf.getFoulCode();
-        return code;
-    }
     
     public void populateFoulCodeTable(int i) {
         NewFoulCodes nfc = new NewFoulCodes();
@@ -120,7 +111,12 @@ public class StartService {
         ff.remove(foul);
     }
     
-    public void edit(Foul foul) {
+    public void edit(Foul foul, Game g, int records) {
+        List<Foul> foulTable = retrieveFoul();
+        Foul f  = foulTable.get(records -1);
+        long id = f.getId();
+        foul.setId(id);
+        foul.setGame(g);
         ff.edit(foul);
     }
     

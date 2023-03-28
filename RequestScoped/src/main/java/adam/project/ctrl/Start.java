@@ -281,7 +281,7 @@ public class Start{
         }
     }
     
-    @PostConstruct
+//    @PostConstruct
     public void populateFoulCodes(){
         FoulCodes fc = new FoulCodes();
         final List<String> fcs = fc.getCodes();
@@ -322,20 +322,11 @@ public class Start{
         foul.setOfficial1(referee);
 //        List<Foul> foulLists = ss.retrieveFoul();
         int records = Integer.parseInt(record);
-        int id = 163 + 82*(records-1);
+        int id = 1 + 82*(records-1);
         long longID = id;
-        foul.setId(longID);
+//        foul.setId(longID);
         business("Edit", records);
 //        ss.edit(foul);
-    }
-    
-    public List<String> foulCodes(){
-        List<String> codes = new ArrayList<>();
-        for(int i = 0; i < 81; i++){
-            String f = ss.Fouls();
-            codes.add(f);
-        }
-        return codes;
     }
     
     private String record;
