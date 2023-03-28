@@ -18,7 +18,7 @@
                 <h:outputLabel value="Time left"/>
                 <h:outputLabel value="Team"/>
                 <h:outputLabel value="Foul Code"/>
-                <h:outputLabel value="Foul Code text"/>
+                <h:outputLabel value="Foul Code Text"/>
                 <h:outputLabel value="Player Number"/>
                 <h:outputLabel value="Player Position"/>
                 <h:outputLabel value="Officials"/>
@@ -28,7 +28,7 @@
                 <h:inputText value="#{start.foul.quarter}" id="quarter" style="width: 100px" required="true" requiredMessage="Enter Quarter"/>
                 
                 <h:inputText id="data2" value="#{start.foul.time}" style="width: 100px" required="true">
-                    <f:converter converterId="com.converter.TimeConverter"/>
+                    <f:converter converterId="adam.project.converter.TimeConverter"/>
                 </h:inputText>
                 
                 <p:selectOneButton  value="#{start.foul.homeOrAway}" style="width: 160px" required="true">
@@ -40,7 +40,7 @@
                     <f:selectItems value="#{start.fouls}" itemLabel="#{fouls.key}" itemValue="#{fouls.value}"/>
                 </p:selectOneMenu>
                 
-                <h:inputText value="#{start.updatedFoul}">
+                <h:inputText value="#{start.updatedFoul}" style="width: 100px">
                     <f:ajax event="keypress" execute="@this" render="@form" listener="#{start.updateComboBox}"/>
                 </h:inputText>
                 
@@ -70,7 +70,7 @@
                     <f:selectItem itemValue="Offset" itemLabel="Offset"/>
                 </p:selectOneButton>
                 
-                <h:inputText value="#{start.gameID}"/>
+                <h:inputText value="#{start.gameID}" style="width: 100px"/>
                 
                 <f:facet name="footer">
                     <h:commandButton value="Add Foul" action="#{start.action}"/>
@@ -94,7 +94,7 @@
                         <h:outputText value="Time"/>
                     </f:facet>
                     <h:outputText value="#{foul.time}">
-                        <f:converter converterId="com.converter.TimeConverter"/>
+                        <f:converter converterId="adam.project.converter.TimeConverter"/>
                     </h:outputText>
                 </h:column>
                 

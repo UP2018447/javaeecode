@@ -3,8 +3,8 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="adamPU" transaction-type="JTA">
     <jta-data-source>java:app/jdbc/adam1</jta-data-source>
-    <class>tutorial.learnprogramming.form4.ent.Codes</class>
-    <class>tutorial.learnprogramming.form4.ent.NewFoulCodes</class>
+    <class>adam.project.ent.Codes</class>
+    <class>adam.project.ent.NewFoulCodes</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
