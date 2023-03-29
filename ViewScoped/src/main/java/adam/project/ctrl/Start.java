@@ -58,15 +58,15 @@ public class Start implements Serializable {
     private String referee;
     private Map<String, String> fouls;
     private Map<String, String> positions;
-    private Map<String, String> updatedFouls;
+    private final Map<String, String> updatedFouls;
 
     public Start() {
         this.fouls = code.getCodes();
+        this.updatedFouls = code.getCodes();
     }
 
     public Map<String, String> getUpdatedFouls() {
 //        Codes codes = new Codes();
-        updatedFouls = code.getCodes();
         return updatedFouls;
     }
 
@@ -146,7 +146,7 @@ public class Start implements Serializable {
     public void updateComboBox() {
         Map<String, String> newFoulHashMap = new HashMap<>();
         
-        for(Map.Entry<String,String> newMap : fouls.entrySet()){
+        for(Map.Entry<String,String> newMap : getUpdatedFouls().entrySet()){
             if(newMap.getKey().contains(filter)){
                 newFoulHashMap.put(newMap.getKey(), newMap.getValue());
             }
@@ -154,39 +154,39 @@ public class Start implements Serializable {
         
         setFouls(newFoulHashMap);
         
-        Set<String> updatedFoulCodes = fouls.keySet();
-        List<String> listOfFoulCodes = new ArrayList<>();
-        listOfFoulCodes.addAll(updatedFoulCodes);
-        String value = filter;
-//        for(String code : updatedFoulCodes){
-//            listOfFoulCodes.add(code);
-//        }
-//        for(Iterator<String> iterator = listOfFoulCodes.iterator(); iterator.hasNext();){
-//            if(!iterator.next().contains(updatedFoul)){
-//                iterator.remove();
+//        Set<String> updatedFoulCodes = fouls.keySet();
+//        List<String> listOfFoulCodes = new ArrayList<>();
+//        listOfFoulCodes.addAll(updatedFoulCodes);
+//        String value = filter;
+////        for(String code : updatedFoulCodes){
+////            listOfFoulCodes.add(code);
+////        }
+////        for(Iterator<String> iterator = listOfFoulCodes.iterator(); iterator.hasNext();){
+////            if(!iterator.next().contains(updatedFoul)){
+////                iterator.remove();
+////            }
+////        }
+////        List<String> updatedFoulCodeList = new ArrayList<>();
+//        List<String> updatedFoulNames = new ArrayList<>();
+//        for (int i = 0; i < listOfFoulCodes.size(); i++) {
+//            String selectedFoulCode = listOfFoulCodes.get(i);
+////            if(selectedFoulCode.contains(value)){
+////                String newName = newFouls.get(selectedFoulCode);
+////                updatedFoulNames.add(newName);
+////                updatedFoulCodeList.add(selectedFoulCode);
+////            }
+//            if (!selectedFoulCode.contains(value)) {
+//                listOfFoulCodes.remove(i);
+//            } else {
+//                updatedFoulNames.add(fouls.get(selectedFoulCode));
 //            }
+//
 //        }
-//        List<String> updatedFoulCodeList = new ArrayList<>();
-        List<String> updatedFoulNames = new ArrayList<>();
-        for (int i = 0; i < listOfFoulCodes.size(); i++) {
-            String selectedFoulCode = listOfFoulCodes.get(i);
-//            if(selectedFoulCode.contains(value)){
-//                String newName = newFouls.get(selectedFoulCode);
-//                updatedFoulNames.add(newName);
-//                updatedFoulCodeList.add(selectedFoulCode);
-//            }
-            if (!selectedFoulCode.contains(value)) {
-                listOfFoulCodes.remove(i);
-            } else {
-                updatedFoulNames.add(fouls.get(selectedFoulCode));
-            }
-
-        }
-//        Map<String, String> newFoulMap = new HashMap<>();
-//        for (int i = 0; i < updatedFoulCodeList.size(); i++) {
-//            newFoulMap.put(updatedFoulCodeList.get(i), updatedFoulNames.get(i));
-//        }
-//        setFouls(newFoulMap);
+////        Map<String, String> newFoulMap = new HashMap<>();
+////        for (int i = 0; i < updatedFoulCodeList.size(); i++) {
+////            newFoulMap.put(updatedFoulCodeList.get(i), updatedFoulNames.get(i));
+////        }
+////        setFouls(newFoulMap);
     }
 
     public String nothing() {
@@ -317,11 +317,12 @@ public class Start implements Serializable {
         business("Add", 0);
 //        ss.addFoul(foul);
 
-        List<Foul> foulList = business("Retrieve", 0);//ss.retrieveFoul();
-
-        for (int i = foulList.size() - 1; i >= 0; i--) {
-            foulsAdded.add(foulList.get(i));
-        }
+//        List<Foul> foulList = business("Retrieve", 0);//ss.retrieveFoul();
+//
+//        for (int i = foulList.size() - 1; i >= 0; i--) {
+//            foulsAdded.add(foulList.get(i));
+//        }
+        foulsAdded.add(foul);
     }
 
     @PostConstruct
