@@ -25,6 +25,7 @@ import adam.project.ents.Foul;
 import adam.project.ents.FoulCodes;
 import adam.project.ents.Game;
 import adam.project.ents.Positions;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 //import tutorial.learnprogramming.form4.ent.foulRecord;
 
@@ -34,12 +35,11 @@ import javax.faces.view.ViewScoped;
  */
 @Named(value = "start")
 @ViewScoped
-public class Start implements Serializable{
+public class Start implements Serializable {
 
     /**
      * Creates a new instance of addFoul
      */
-    
     private String foulType;
     private String foulCode = "code";
     private String quarter;
@@ -56,21 +56,24 @@ public class Start implements Serializable{
     private TimeData data2;
     private String test;
     private String referee;
-    private Map<String,String> fouls;
-    private Map<String,String> positions;
-    private Map<String,String> updatedFouls;
-    
+    private Map<String, String> fouls;
+    private Map<String, String> positions;
+    private Map<String, String> updatedFouls;
+
     public Start() {
+        this.fouls = code.getCodes();
     }
 
     public Map<String, String> getUpdatedFouls() {
+//        Codes codes = new Codes();
+        updatedFouls = code.getCodes();
         return updatedFouls;
     }
 
     public void setUpdatedFouls(Map<String, String> updatedFouls) {
-        this.updatedFouls = updatedFouls;
+//        this.updatedFouls = updatedFouls;
     }
-    
+
     private Foul foul = new Foul();
 
     public Foul getFoul() {
@@ -80,7 +83,7 @@ public class Start implements Serializable{
     public void setFoul(Foul foul) {
         this.foul = foul;
     }
-    
+
     private Game g = new Game();
 
     public Game getG() {
@@ -91,8 +94,6 @@ public class Start implements Serializable{
         this.g = g;
     }
 
-    
-
     //private Codes codes = new Codes();
     //public Codes getCodes() {
     //return codes;
@@ -100,7 +101,6 @@ public class Start implements Serializable{
     //public void setCodes(Codes codes) {
     //this.codes = codes;
     //}
-    
     private String filter;
 
     public String getFilter() {
@@ -111,7 +111,7 @@ public class Start implements Serializable{
         this.filter = filter;
     }
 
-    public Map<String,String> getPositions() {
+    public Map<String, String> getPositions() {
 //        positions = new HashMap<>();
         Positions pos = new Positions();
         positions = pos.getPositions();
@@ -121,24 +121,43 @@ public class Start implements Serializable{
     public void setPositions(Map<String, String> positions) {
         this.positions = positions;
     }
-    
-    public Map<String,String> getFouls(){
-//        fouls = new HashMap<>();
-        Codes codes = new Codes();
-        fouls = codes.getCodes();
+
+    public Map<String, String> getFouls() {
         return fouls;
     }
 
     public void setFouls(Map<String, String> fouls) {
         this.fouls = fouls;
     }
-    
-    public void updateComboBox(){
-        Map<String,String> newFouls = getFouls();
-        Set<String> updatedFoulCodes = newFouls.keySet();
+
+//    public void ajaxListener(AjaxBehaviorEvent event){
+//        Dao dao = BeanFactory.getHotelDAOService();
+//    }
+    Codes code = new Codes();
+
+    public Codes getCode() {
+        return code;
+    }
+
+    public void setCode(Codes code) {
+        this.code = code;
+    }
+
+    public void updateComboBox() {
+        Map<String, String> newFoulHashMap = new HashMap<>();
+        
+        for(Map.Entry<String,String> newMap : fouls.entrySet()){
+            if(newMap.getKey().contains(filter)){
+                newFoulHashMap.put(newMap.getKey(), newMap.getValue());
+            }
+        }
+        
+        setFouls(newFoulHashMap);
+        
+        Set<String> updatedFoulCodes = fouls.keySet();
         List<String> listOfFoulCodes = new ArrayList<>();
         listOfFoulCodes.addAll(updatedFoulCodes);
-        String filterValue = getFilter();
+        String value = filter;
 //        for(String code : updatedFoulCodes){
 //            listOfFoulCodes.add(code);
 //        }
@@ -147,28 +166,30 @@ public class Start implements Serializable{
 //                iterator.remove();
 //            }
 //        }
-        List<String> updatedFoulCodeList = new ArrayList<>();
+//        List<String> updatedFoulCodeList = new ArrayList<>();
         List<String> updatedFoulNames = new ArrayList<>();
-        String filterLetter = filterValue;
-        for(int i = 0; i < listOfFoulCodes.size(); i++){
+        for (int i = 0; i < listOfFoulCodes.size(); i++) {
             String selectedFoulCode = listOfFoulCodes.get(i);
-            if(selectedFoulCode.contains(filterLetter)){
-                String newName = newFouls.get(selectedFoulCode);
-                updatedFoulNames.add(newName);
-                updatedFoulCodeList.add(selectedFoulCode);
+//            if(selectedFoulCode.contains(value)){
+//                String newName = newFouls.get(selectedFoulCode);
+//                updatedFoulNames.add(newName);
+//                updatedFoulCodeList.add(selectedFoulCode);
+//            }
+            if (!selectedFoulCode.contains(value)) {
+                listOfFoulCodes.remove(i);
+            } else {
+                updatedFoulNames.add(fouls.get(selectedFoulCode));
             }
-            
+
         }
-        newFouls.clear();
-//        Map<String,String> updatedFoulMap = new HashMap<>();
-        for(int i = 0; i < updatedFoulCodeList.size(); i++){
-            newFouls.put(updatedFoulCodeList.get(i), updatedFoulNames.get(i));
-        }
-        
-        setFouls(newFouls);
+//        Map<String, String> newFoulMap = new HashMap<>();
+//        for (int i = 0; i < updatedFoulCodeList.size(); i++) {
+//            newFoulMap.put(updatedFoulCodeList.get(i), updatedFoulNames.get(i));
+//        }
+//        setFouls(newFoulMap);
     }
-    
-    public String nothing(){
+
+    public String nothing() {
         quarter = quarter + quarter;
         return "";
     }
@@ -213,12 +234,11 @@ public class Start implements Serializable{
         this.official1 = official1;
     }
 
-    public String getOfficial1InString(){
+    public String getOfficial1InString() {
         return Arrays.toString(official1);
     }
-    
-    //private String officials = getOfficial1InString();
 
+    //private String officials = getOfficial1InString();
     public String getFoulType() {
         return foulType;
     }
@@ -282,11 +302,11 @@ public class Start implements Serializable{
     public void setReferee(String referee) {
         this.referee = referee;
     }
-    
+
     @EJB
     private StartService ss;
-    
-    public void action(){
+
+    public void action() {
 //        String timeLeft = String.valueOf(this.data2);
 //        int timeRemaining = Integer.parseInt(timeLeft);
         setReferee(getOfficial1InString());
@@ -296,32 +316,32 @@ public class Start implements Serializable{
 //        g.setId(gameID);
         business("Add", 0);
 //        ss.addFoul(foul);
-        
+
         List<Foul> foulList = business("Retrieve", 0);//ss.retrieveFoul();
-        
-        for(int i = foulList.size()-1; i >= 0; i--){
+
+        for (int i = foulList.size() - 1; i >= 0; i--) {
             foulsAdded.add(foulList.get(i));
         }
     }
-    
-//    @PostConstruct
-    public void populateFoulCodes(){
+
+    @PostConstruct
+    public void populateFoulCodes() {
         FoulCodes fc = new FoulCodes();
         final List<String> fcs = fc.getCodes();
-        
-        for(int i=0; i < fcs.size(); i++){
+
+        for (int i = 0; i < fcs.size(); i++) {
             business("Codes", i);
         }
     }
-    
-    public List<Foul> business(String cmd, int records){
+
+    public List<Foul> business(String cmd, int records) {
 //        Game g = new Game();
         g.setId(gameID);
         List<Foul> retrievedFoul = ss.interact(cmd, records, foul, g);
         return retrievedFoul;
     }
-    
-    public String timeConversion(String time){
+
+    public String timeConversion(String time) {
         int secs = Integer.parseInt(time);
         int remainingSeconds = secs % 60;
         secs = secs - remainingSeconds;
@@ -331,13 +351,13 @@ public class Start implements Serializable{
         String realTime = mins + "'" + secsRemaining;
         return realTime;
     }
-    
-    public void delete(){
+
+    public void delete() {
         int records = Integer.parseInt(record);
         business("Delete", records);
     }
-    
-    public void edit(){
+
+    public void edit() {
 //        String timeLeft = String.valueOf(this.data2);
 //        int timeRemaining = Integer.parseInt(timeLeft);
         setReferee(getOfficial1InString());
@@ -345,13 +365,13 @@ public class Start implements Serializable{
         foul.setOfficial1(referee);
 //        List<Foul> foulLists = ss.retrieveFoul();
         int records = Integer.parseInt(record);
-        int id = 1 + 82*(records-1);
+        int id = 1 + 82 * (records - 1);
         long longID = id;
 //        foul.setId(longID);
         business("Edit", records);
 //        ss.edit(foul);
     }
-    
+
     private String record;
 
     public String getRecord() {
@@ -361,7 +381,7 @@ public class Start implements Serializable{
     public void setRecord(String record) {
         this.record = record;
     }
-    
+
     private Long gameID;
 
     public Long getGameID() {
@@ -371,7 +391,7 @@ public class Start implements Serializable{
     public void setGameID(Long gameID) {
         this.gameID = gameID;
     }
-    
+
     private int count;
 
     public int getCount() {
@@ -389,7 +409,7 @@ public class Start implements Serializable{
     public void setData2(TimeData data2) {
         this.data2 = data2;
     }
-    
+
     private List<Foul> foulsAdded = new ArrayList<>();
 
     public List<Foul> getFoulsAdded() {
@@ -399,8 +419,8 @@ public class Start implements Serializable{
     public void setFoulsAdded(List<Foul> foulsAdded) {
         this.foulsAdded = foulsAdded;
     }
-    
-    public void populateTable(){
+
+    public void populateTable() {
         foulsAdded.add(foul);
     }
 }

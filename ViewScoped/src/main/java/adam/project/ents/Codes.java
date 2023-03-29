@@ -37,10 +37,6 @@ public class Codes implements Serializable {
         this.id = id;
     }
     
-    @ElementCollection
-    @MapKeyColumn(name = "foulCodes")
-    @Column(name = "foulNames")
-    @CollectionTable(name = "foulCodesCollectionTable", joinColumns=@JoinColumn(name = "example_id"))
     private static Map<String, String> codes = null;
 
     private void init() {

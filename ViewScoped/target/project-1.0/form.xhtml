@@ -41,7 +41,7 @@
                 </p:selectOneMenu>
                 
                 <h:inputText value="#{start.filter}" style="width: 100px" id="foulText">
-                    <f:ajax event="keypress" execute="@this" render="foulText foulMenu" listener="#{start.updateComboBox}"/>
+                    <f:ajax event="keypress" execute="@this" render="foulText foulMenu" listener="#{start.updateComboBox}" delay="1000"/>
                 </h:inputText>
                 
                 <h:inputText value="#{start.foul.player}" style="width: 100px">
@@ -74,6 +74,7 @@
                 
                 <f:facet name="footer">
                     <h:commandButton value="Add Foul" action="#{start.action}"/>
+                    <h:commandButton value="Finish" action="next"/>
                 </f:facet>
             </h:panelGrid>
             <br/>
