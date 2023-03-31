@@ -9,26 +9,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import adam.project.bus.StartService;
 import adam.project.ents.TimeData;
-//import tutorial.learnprogramming.form4.ent.Fouls;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import adam.project.ents.Codes;
 import adam.project.ents.Foul;
 import adam.project.ents.FoulCodes;
 import adam.project.ents.Game;
 import adam.project.ents.Positions;
 import java.util.LinkedHashMap;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
-//import tutorial.learnprogramming.form4.ent.foulRecord;
 
 /**
  *
@@ -41,25 +33,12 @@ public class Start implements Serializable {
     /**
      * Creates a new instance of addFoul
      */
-    private String foulType;
-    private String foulCode = "code";
-    private String quarter;
-    private String time = "m's";
-    private String team = "team";
-    private String player;
-    private String playerPosition;
-    private String official = "official";
+    
     private String[] official1;
-    private String homeOrAway;
-    private String decision;
-    //private String min;
-    //private String sec;
-    private TimeData data2;
-    private String test;
     private String referee;
     private Map<String, String> fouls = null;
     private Map<String, String> positions;
-    private static Map<String, String> updatedFouls = null;
+    private static Map<String, String> updatedFouls;
 
     public Start() {
 //        this.updatedFouls = populateFoulMap();
@@ -153,43 +132,6 @@ public class Start implements Serializable {
 
     }
 
-    public String nothing() {
-        quarter = quarter + quarter;
-        return "";
-    }
-
-    public String getPlayerPosition() {
-        return playerPosition;
-    }
-
-    public void setPlayerPosition(String playerPosition) {
-        this.playerPosition = playerPosition;
-    }
-
-    public String getTest() {
-        return test;
-    }
-
-    public void setTest(String test) {
-        this.test = test;
-    }
-
-    public String getDecision() {
-        return decision;
-    }
-
-    public void setDecision(String decision) {
-        this.decision = decision;
-    }
-
-    public String getHomeOrAway() {
-        return homeOrAway;
-    }
-
-    public void setHomeOrAway(String homeOrAway) {
-        this.homeOrAway = homeOrAway;
-    }
-
     public String[] getOfficial1() {
         return official1;
     }
@@ -200,63 +142,6 @@ public class Start implements Serializable {
 
     public String getOfficial1InString() {
         return Arrays.toString(official1);
-    }
-
-    //private String officials = getOfficial1InString();
-    public String getFoulType() {
-        return foulType;
-    }
-
-    public void setFoulType(String foulType) {
-        this.foulType = foulType;
-    }
-
-    public String getFoulCode() {
-        return foulCode;
-    }
-
-    public void setFoulCode(String foulCode) {
-        this.foulCode = foulCode;
-    }
-
-    public String getQuarter() {
-        return quarter;
-    }
-
-    public void setQuarter(String quarter) {
-        this.quarter = quarter;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getTeam() {
-        return team;
-    }
-
-    public void setTeam(String team) {
-        this.team = team;
-    }
-
-    public String getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(String player) {
-        this.player = player;
-    }
-
-    public String getOfficial() {
-        return official;
-    }
-
-    public void setOfficial(String official) {
-        this.official = official;
     }
 
     public String getReferee() {
@@ -286,7 +171,7 @@ public class Start implements Serializable {
 //        for (int i = foulList.size() - 1; i >= 0; i--) {
 //            foulsAdded.add(foulList.get(i));
 //        }
-        foulsAdded.add(foul);
+//        foulsAdded.add(foul);
     }
 
     @PostConstruct
@@ -299,10 +184,11 @@ public class Start implements Serializable {
         }
     }
 
-    public void business(String cmd, int records) {
+    public List<Foul> business(String cmd, int records) {
 //        Game g = new Game();
         g.setId(gameID);
-        ss.interact(cmd, records, foul, g);
+        List<Foul> foulsRetrieved = ss.interact(cmd, records, foul, g);
+        return foulsRetrieved;
     }
 
     public String timeConversion(String time) {
@@ -329,8 +215,8 @@ public class Start implements Serializable {
         foul.setOfficial1(referee);
 //        List<Foul> foulLists = ss.retrieveFoul();
         int records = Integer.parseInt(record);
-//        int id = 1 + 82 * (records - 1);
-//        long longID = id;
+        int id = 1 + 82 * (records - 1);
+        long longID = id;
 //        foul.setId(longID);
         business("Edit", records);
 //        ss.edit(foul);
@@ -366,17 +252,15 @@ public class Start implements Serializable {
         this.count = count;
     }
 
-    public TimeData getData2() {
-        return data2;
-    }
-
-    public void setData2(TimeData data2) {
-        this.data2 = data2;
-    }
-
     private List<Foul> foulsAdded = new ArrayList<>();
 
     public List<Foul> getFoulsAdded() {
+        foulsAdded = new ArrayList<>();
+        List<Foul> foulList = business("Retrieve", 0);//ss.retrieveFoul();
+//
+        for (int i = foulList.size() - 1; i >= 0; i--) {
+            foulsAdded.add(foulList.get(i));
+        }
         return foulsAdded;
     }
 

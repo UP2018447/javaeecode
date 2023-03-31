@@ -42,7 +42,8 @@ public class StartService {
     @EJB
     private GameFacade gf;
 
-    public void interact(String cmd, int records, Foul foul, Game g) {
+    public List<Foul> interact(String cmd, int records, Foul foul, Game g) {
+        List<Foul> foulRetrieved = new ArrayList<>();
         if (null != cmd) {
             switch (cmd) {
                 case "Delete":
@@ -57,13 +58,14 @@ public class StartService {
                 case "Add":
                     addFoul(foul, g);
                     break;
-//                case "Retrieve":
-//                    foulRetrieved = retrieveFoul();
-//                    break;
+                case "Retrieve":
+                    foulRetrieved = retrieveFoul();
+                    break;
                 default:
                     break;
             }
         }
+        return foulRetrieved;
     }
 
     public Foul addFoul(Foul foul, Game g) {
@@ -296,6 +298,12 @@ public class StartService {
         names.add("Unfair acts");
         names.add("Unfair tactics");
         return names;
+    }
+    
+    public Map<String,String> getFoulMap(){
+        Map<String,String> fouls = null;
+        fouls = populateFoulMap(fouls);
+        return fouls;
     }
 
     public Map<String, String> populateFoulMap(Map<String,String> fouls) {
