@@ -73,7 +73,8 @@
                 <h:inputText value="#{start.gameID}" style="width: 100px"/>
                 
                 <f:facet name="footer">
-                    <h:commandButton value="Add Foul" action="#{start.action}"/>
+                    <h:commandButton value="Check" action="#{start.checkForm}"/>
+                    <h:commandButton value="Add Foul" action="#{start.action}" rendered="#{start.flag}"/>
                     <h:commandButton value="Finish" action="next"/>
                 </f:facet>
             </h:panelGrid>

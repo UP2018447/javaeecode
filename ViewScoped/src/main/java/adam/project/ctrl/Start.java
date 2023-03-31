@@ -172,6 +172,7 @@ public class Start implements Serializable {
 //            foulsAdded.add(foulList.get(i));
 //        }
 //        foulsAdded.add(foul);
+        flag = false;
     }
 
     @PostConstruct
@@ -270,6 +271,22 @@ public class Start implements Serializable {
 
     public void populateTable() {
         foulsAdded.add(foul);
+    }
+    
+    private boolean flag;
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+    
+    public void checkForm(){
+        if(!foul.getQuarter().isEmpty() && !foul.getHomeOrAway().isEmpty() && !foul.getFoulName().isEmpty() && !foul.getDecision().isEmpty()){
+            flag = true;
+        }
     }
 
     private Map<String, String> populateFoulMap() {
