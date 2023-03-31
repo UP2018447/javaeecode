@@ -335,11 +335,10 @@ public class Start implements Serializable {
         }
     }
 
-    public List<Foul> business(String cmd, int records) {
+    public void business(String cmd, int records) {
 //        Game g = new Game();
         g.setId(gameID);
-        List<Foul> retrievedFoul = ss.interact(cmd, records, foul, g);
-        return retrievedFoul;
+        ss.interact(cmd, records, foul, g);
     }
 
     public String timeConversion(String time) {
