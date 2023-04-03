@@ -42,7 +42,7 @@ public class StartService {
     @EJB
     private GameFacade gf;
 
-    public List<Foul> interact(String cmd, int records, Foul foul, Game g) {
+    public List<Foul> interact(String cmd, int records, Foul foul, Game g, List<Foul> foulsAdded) {
         List<Foul> foulRetrieved = new ArrayList<>();
         if (null != cmd) {
             switch (cmd) {
@@ -60,12 +60,16 @@ public class StartService {
                     break;
                 case "Retrieve":
                     foulRetrieved = retrieveFoul();
+                    for (int i = foulRetrieved.size() - 1; i >= 0; i--) {
+                        foulsAdded.add(foulRetrieved.get(i));
+                    }
+
                     break;
                 default:
                     break;
             }
         }
-        return foulRetrieved;
+        return foulsAdded;
     }
 
     public Foul addFoul(Foul foul, Game g) {
@@ -127,8 +131,8 @@ public class StartService {
         List<Foul> fouls = ff.findAll();
         return fouls;
     }
-    
-    public List<String> populateCodeList(List<String> codes){
+
+    public List<String> populateCodeList(List<String> codes) {
         codes = new ArrayList<>();
         codes.add("APS");
         codes.add("ATR");
@@ -213,8 +217,8 @@ public class StartService {
         codes.add("UFT");
         return codes;
     }
-    
-    public List<String> populateNameList(List<String> names){
+
+    public List<String> populateNameList(List<String> names) {
         names = new ArrayList<>();
         names.add("Altering playing surface");
         names.add("Assisting the runner");
@@ -298,97 +302,5 @@ public class StartService {
         names.add("Unfair acts");
         names.add("Unfair tactics");
         return names;
-    }
-    
-    public Map<String,String> getFoulMap(){
-        Map<String,String> fouls = null;
-        fouls = populateFoulMap(fouls);
-        return fouls;
-    }
-
-    public Map<String, String> populateFoulMap(Map<String,String> fouls) {
-        fouls = new LinkedHashMap<>();
-        fouls.put("APS", "Altering playing surface");
-        fouls.put("ATR", "Assisting the runner");
-        fouls.put("BAT", "Illegal batting");
-        fouls.put("DEH", "Holding, defense");
-        fouls.put("DOD", "Delay of game, defense");
-        fouls.put("DOF", "Offside, defense");
-        fouls.put("DOG", "Delay of game, offense");
-        fouls.put("DPI", "Pass interference, defense");
-        fouls.put("DSH", "Delay of game, start of half");
-        fouls.put("DSQ", "Disqualification");
-        fouls.put("ENC", "Encroachment (offense)");
-        fouls.put("FGT", "Fighting");
-        fouls.put("FST", "False start");
-        fouls.put("IBB", "Illegal block in the back");
-        fouls.put("IBK", "Illegal block during kick");
-        fouls.put("IBP", "Illegal backward pass");
-        fouls.put("IDP", "Ineligible downfield on pass");
-        fouls.put("IFD", "Illegal formation, defense (3-on-1)");
-        fouls.put("IFH", "Illegal forward handling");
-        fouls.put("IFK", "Illegal free kick formation");
-        fouls.put("IFP", "Illegal forward pass");
-        fouls.put("IJY", "Illegal jerseys");
-        fouls.put("IKB", "Illegally kicking ball");
-        fouls.put("ILF", "Illegal formation");
-        fouls.put("ILM", "Illegal motion");
-        fouls.put("ING", "Intentional grounding");
-        fouls.put("IPN", "Improper numbering");
-        fouls.put("IPR", "Illegal procedure");
-        fouls.put("ISH", "Illegal shift");
-        fouls.put("ISP", "Illegal snap");
-        fouls.put("ITP", "Illegal touching of a forward pass");
-        fouls.put("IUH", "Illegal use of hands");
-        fouls.put("IWK", "Illegal wedge on kickoff");
-        fouls.put("KCI", "Kick-catch interference");
-        fouls.put("KIK", "Illegal kick");
-        fouls.put("KOB", "Free kick out of bounds");
-        fouls.put("OBK", "Out of bounds during kick");
-        fouls.put("OFH", "Holding, offense");
-        fouls.put("OFK", "Offside, free kick");
-        fouls.put("OPI", "Pass interference, offense");
-        fouls.put("PF-BBW", "Personal Foul, Blocking Below the Waist");
-        fouls.put("PF-BOB", "Personal Foul, Blocking Out of Bounds");
-        fouls.put("PF-BTH", "Personal Foul, Blow To the Head");
-        fouls.put("PF-CHB", "Personal Foul, Chop Block");
-        fouls.put("PF-CLP", "Personal Foul, Clipping");
-        fouls.put("PF-FMM", "Personal Foul, Face Mask");
-        fouls.put("PF-HCT", "Personal Foul, Horse Collar Tackle");
-        fouls.put("PF-HDR", "Personal Foul, Hit on Defenseless Receiver");
-        fouls.put("PF-HTF", "Personal Foul, Hands To the Face");
-        fouls.put("PF-HUR", "Personal Foul, Hurdling");
-        fouls.put("PF-ICS", "Personal Foul, Illegal Contact with Snapper");
-        fouls.put("PF-LEA", "Personal Foul, Leaping");
-        fouls.put("PF-LHP", "Personal Foul, Late Hit/Piling on");
-        fouls.put("PF-LTO", "Personal Foul, Late Hit out of Bounds");
-        fouls.put("PF-OTH", "Personal Foul, Other");
-        fouls.put("PF-RFK", "Personal Foul, Roughing Free Kicker");
-        fouls.put("PF-RTH", "Personal Foul, Roughing The Holder");
-        fouls.put("PF-RTK", "Personal Foul, Roughing The Kicker");
-        fouls.put("PF-RTP", "Personal Foul, Roughing The Passer");
-        fouls.put("PF-SKE", "Personal Foul, Striking/Kneeing/Elbowing");
-        fouls.put("PF-TGT", "Personal Foul, Targeting");
-        fouls.put("PF-TRP", "Personal Foul, Tripping");
-        fouls.put("PF-UNR", "Personal Foul, Unnecessary Roughness");
-        fouls.put("RNH", "Running into the holder");
-        fouls.put("RNK", "Running into the kicker");
-        fouls.put("SLI", "Sideline interference, 5 yards");
-        fouls.put("SLM", "Sideline interference, 15 yards");
-        fouls.put("SLW", "Sideline interference, warning");
-        fouls.put("SUB", "Illegal substitution");
-        fouls.put("UC-2PN", "Unsportsmanlike conduct, two players with same number");
-        fouls.put("UC-ABL", "Unsportsmanlike conduct, abusive language");
-        fouls.put("UC-BCH", "Unsportsmanlike conduct, bench");
-        fouls.put("UC-DEA", "Unsportsmanlike conduct, delayed/excessive act");
-        fouls.put("UC-FCO", "Unsportsmanlike conduct, forcibly contacting an official");
-        fouls.put("UC-RHT", "Unsportsmanlike conduct, removal of helmet");
-        fouls.put("UC-SBR", "Unsportsmanlike conduct, simulating being roughed");
-        fouls.put("UC-STB", "Unsportsmanlike conduct, spiking/throwing ball");
-        fouls.put("UC-TAU", "Unsportsmanlike conduct, taunting/baiting");
-        fouls.put("UC-UNS", "Unsportsmanlike conduct, other");
-        fouls.put("UFA", "Unfair acts");
-        fouls.put("UFT", "Unfair tactics");
-        return fouls;
     }
 }
