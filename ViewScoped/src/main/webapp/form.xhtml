@@ -52,16 +52,7 @@
                 </p:selectOneMenu>
                 
                 <p:selectManyButton value="#{start.official1}" style="width: 510px" required="true">
-                    <f:selectItem itemValue="R" itemLabel="R"/>
-                    <f:selectItem itemValue="Um" itemLabel="Um"/>
-                    <f:selectItem itemValue="HL" itemLabel="HL"/>
-                    <f:selectItem itemValue="LJ" itemLabel="LJ"/>
-                    <f:selectItem itemValue="BJ" itemLabel="BJ"/>
-                    <f:selectItem itemValue="FJ" itemLabel="FJ"/>
-                    <f:selectItem itemValue="SJ" itemLabel="SJ"/>
-                    <f:selectItem itemValue="CJ" itemLabel="CJ"/>
-                    <f:selectItem itemValue="VJ" itemLabel="VJ"/>
-                    <f:selectItem itemValue="N/A" itemLabel="N/A"/>
+                    <f:selectItems value="#{start.officials}" itemLabel="#{officials.key}" itemValue="#{officials.value}"/>
                 </p:selectManyButton>
                 
                 <p:selectOneButton value="#{start.foul.decision}" style="width: 280px" required="true">

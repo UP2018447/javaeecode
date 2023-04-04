@@ -10,15 +10,11 @@ import java.util.Arrays;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import adam.project.bus.StartService;
-import adam.project.ents.TimeData;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import adam.project.ents.Codes;
 import adam.project.ents.Foul;
-import adam.project.ents.FoulCodes;
 import adam.project.ents.Game;
-import adam.project.ents.Positions;
 import java.util.LinkedHashMap;
 import javax.faces.view.ViewScoped;
 
@@ -36,26 +32,16 @@ public class Start implements Serializable {
     
     private String[] official1;
     private String referee;
+    private static Map<String,String> officialList;
     private Map<String, String> fouls;
     private Map<String, String> positions;
     private static Map<String, String> updatedFouls;
 
     public Start() {
-//        this.updatedFouls = populateFoulMap();
-        Start.updatedFouls = populateFoulMap();
         this.fouls = updatedFouls;
         
     }
-
-    public Map<String, String> getUpdatedFouls() {
-//        Codes codes = new Codes();;
-        return updatedFouls;
-    }
-
-    public void setUpdatedFouls(Map<String, String> updatedFouls) {
-//        this.updatedFouls = updatedFouls;
-    }
-
+    
     private Foul foul = new Foul();
 
     public Foul getFoul() {
@@ -76,6 +62,26 @@ public class Start implements Serializable {
         this.g = g;
     }
 
+    public Map<String, String> getOfficials() {
+        officialList = new LinkedHashMap<>();
+        officialList.put("R", "R");
+        officialList.put("U", "U");
+        officialList.put("HL", "HL");
+        officialList.put("LJ", "LJ");
+        officialList.put("BJ", "BJ");
+        officialList.put("FJ", "FJ");
+        officialList.put("SJ", "SJ");
+        officialList.put("CJ", "CJ");
+        officialList.put("VJ", "VJ");
+        officialList.put("N/A", "N/A");
+        return officialList;
+    }
+
+    public Map<String, String> getUpdatedFouls() {
+        updatedFouls = populateFoulMap();
+        return updatedFouls;
+    }
+
     private String filter;
 
     public String getFilter() {
@@ -87,9 +93,7 @@ public class Start implements Serializable {
     }
 
     public Map<String, String> getPositions() {
-//        positions = new HashMap<>();
-        Positions pos = new Positions();
-        positions = pos.getPositions();
+        positions = ss.populatePositions(positions);
         return positions;
     }
 
@@ -98,25 +102,11 @@ public class Start implements Serializable {
     }
 
     public Map<String, String> getFouls() {
-//        fouls = ss.populateFoulMap(fouls);
         return fouls;
     }
 
     public void setFouls(Map<String, String> fouls) {
         this.fouls = fouls;
-    }
-
-//    public void ajaxListener(AjaxBehaviorEvent event){
-//        Dao dao = BeanFactory.getHotelDAOService();
-//    }
-    Codes code = new Codes();
-
-    public Codes getCode() {
-        return code;
-    }
-
-    public void setCode(Codes code) {
-        this.code = code;
     }
 
     public void updateComboBox() {
@@ -154,29 +144,16 @@ public class Start implements Serializable {
     private StartService ss;
 
     public void action() {
-//        String timeLeft = String.valueOf(this.data2);
-//        int timeRemaining = Integer.parseInt(timeLeft);
         setReferee(getOfficial1InString());
-//        foul.setTime(timeRemaining);
         foul.setOfficial1(referee);
-//        Game g = new Game();
-//        g.setId(gameID);
         business("Add", 0);
-//        ss.addFoul(foul);
-
-//        List<Foul> foulList = business("Retrieve", 0);//ss.retrieveFoul();
-//
-//        for (int i = foulList.size() - 1; i >= 0; i--) {
-//            foulsAdded.add(foulList.get(i));
-//        }
-//        foulsAdded.add(foul);
         flag = false;
     }
 
     @PostConstruct
     public void populateFoulCodes() {
-        FoulCodes fc = new FoulCodes();
-        final List<String> fcs = fc.getCodes();
+        List<String> fcs = null;
+        fcs = ss.populateCodeList(fcs);
 
         for (int i = 0; i < fcs.size(); i++) {
             business("Codes", i);
@@ -184,7 +161,6 @@ public class Start implements Serializable {
     }
 
     public List<Foul> business(String cmd, int records) {
-//        Game g = new Game();
         g.setId(gameID);
         ss.interact(cmd, records, foul, g, foulsAdded);
         return foulsAdded;
@@ -196,18 +172,10 @@ public class Start implements Serializable {
     }
 
     public void edit() {
-//        String timeLeft = String.valueOf(this.data2);
-//        int timeRemaining = Integer.parseInt(timeLeft);
         setReferee(getOfficial1InString());
-//        foul.setTime(timeRemaining);
         foul.setOfficial1(referee);
-//        List<Foul> foulLists = ss.retrieveFoul();
         int records = Integer.parseInt(record);
-//        int id = 1 + 82 * (records - 1);
-//        long longID = id;
-//        foul.setId(longID);
         business("Edit", records);
-//        ss.edit(foul);
     }
 
     private String record;
@@ -233,7 +201,8 @@ public class Start implements Serializable {
     private int count;
 
     public int getCount() {
-        return foulsAdded.size();
+        count = foulsAdded.size();
+        return count;
     }
 
     public void setCount(int count) {

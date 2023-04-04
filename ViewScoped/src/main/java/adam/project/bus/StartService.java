@@ -5,20 +5,16 @@
 package adam.project.bus;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import adam.project.ents.Foul;
-import adam.project.ents.FoulCodes;
 import adam.project.ents.Game;
 import adam.project.ents.NewFoulCodes;
-import adam.project.pers.CodesFacade;
 import adam.project.pers.FoulFacade;
 import adam.project.pers.GameFacade;
 import adam.project.pers.NewFoulCodesFacade;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -34,16 +30,13 @@ public class StartService {
     private FoulFacade ff;
 
     @EJB
-    private CodesFacade cf;
-
-    @EJB
     private NewFoulCodesFacade nfcf;
 
     @EJB
     private GameFacade gf;
 
     public List<Foul> interact(String cmd, int records, Foul foul, Game g, List<Foul> foulsAdded) {
-        List<Foul> foulRetrieved = new ArrayList<>();
+        List<Foul> foulRetrieved;
         if (null != cmd) {
             switch (cmd) {
                 case "Delete":
@@ -73,31 +66,18 @@ public class StartService {
     }
 
     public Foul addFoul(Foul foul, Game g) {
-//        Game g2 = new Game();
-//        Long gameID = g.getId();
-//        Foul f = foul;
-//        Game game = new Game();
         foul.setGame(g);
-//        ff.create(f);
         List<Foul> fouls = retrieveFoul();
         fouls.add(foul);
-//        Game game = new Game();
-//        g.setId(gameID);
         g.setFoulList(fouls);
-//        Game edit = gf.edit(g);
         gf.edit(g);
-//        String foulList = String.valueOf(foul);
-//        g.setFoulInString(foulList);
-//        g.setFoulList(fouls);
-
         return foul;
     }
 
     public void populateFoulCodeTable(int i) {
         NewFoulCodes nfc = new NewFoulCodes();
-//        FoulCodes fc = new FoulCodes();
-        List<String> fouls = null;//fc.getNames();
-        List<String> codes = null;//fc.getCodes();
+        List<String> fouls = null;
+        List<String> codes = null;
         fouls = populateNameList(fouls);
         codes = populateCodeList(codes);
         String foul = fouls.get(i);
@@ -109,11 +89,6 @@ public class StartService {
 
     public void delete(int records) {
         List<Foul> foulTable = retrieveFoul();
-//        Game g = gf.find(1);
-//        List<Foul> games = g.getFoulList();
-//        games.remove(records-1);
-//        g.setFoulList(games);
-//        gf.edit(g);
         Foul foul = foulTable.get(records - 1);
         ff.remove(foul);
     }
@@ -125,6 +100,41 @@ public class StartService {
         foul.setId(id);
         foul.setGame(g);
         ff.edit(foul);
+    }
+
+    public Map<String, String> populatePositions(Map<String, String> positions) {
+        positions = new HashMap<>();
+        positions.put("QB", "QB");
+        positions.put("RB", "RB");
+        positions.put("FB", "FB");
+        positions.put("WR", "WR");
+        positions.put("TE", "TE");
+        positions.put("OL", "OL");
+        positions.put("C", "C");
+        positions.put("G", "G");
+        positions.put("LG", "LG");
+        positions.put("RG", "RG");
+        positions.put("T", "T");
+        positions.put("LT", "LT");
+        positions.put("RT", "RT");
+        positions.put("K", "K");
+        positions.put("KR", "KR");
+        positions.put("DL", "DL");
+        positions.put("DE", "DE");
+        positions.put("DT", "DT");
+        positions.put("NT", "NT");
+        positions.put("LB", "LB");
+        positions.put("ILB", "ILB");
+        positions.put("OLB", "OLB");
+        positions.put("MLB", "MLB");
+        positions.put("DB", "DB");
+        positions.put("CB", "CB");
+        positions.put("FS", "FS");
+        positions.put("SS", "SS");
+        positions.put("S", "S");
+        positions.put("P", "P");
+        positions.put("PR", "PR");
+        return positions;
     }
 
     public List<Foul> retrieveFoul() {
