@@ -38,8 +38,7 @@ public class Start implements Serializable {
     private static Map<String, String> updatedFouls;
 
     public Start() {
-        this.fouls = updatedFouls;
-        
+        this.fouls = populateFoulMap();
     }
     
     private Foul foul = new Foul();
@@ -110,13 +109,15 @@ public class Start implements Serializable {
     }
 
     public void updateComboBox() {
-        Map<String, String> newFoulHashMap = new LinkedHashMap<>();
-
-        for (Map.Entry<String, String> mapToBeFiltered : getUpdatedFouls().entrySet()) {
-            if (mapToBeFiltered.getKey().contains(filter)) {
-                newFoulHashMap.put(mapToBeFiltered.getKey(), mapToBeFiltered.getValue());
-            }
-        }
+        Map<String,String> newFoulHashMap = ss.updateComboBox(getUpdatedFouls(), filter);
+        
+//        Map<String, String> newFoulHashMap = new LinkedHashMap<>();
+//
+//        for (Map.Entry<String, String> mapToBeFiltered : getUpdatedFouls().entrySet()) {
+//            if (mapToBeFiltered.getKey().contains(filter)) {
+//                newFoulHashMap.put(mapToBeFiltered.getKey(), mapToBeFiltered.getValue());
+//            }
+//        }
         setFouls(newFoulHashMap);
     }
 
@@ -146,7 +147,8 @@ public class Start implements Serializable {
     public void action() {
         setReferee(getOfficial1InString());
         foul.setOfficial1(referee);
-        business("Add", 0);
+        g.setId(gameID);
+        ss.addFoul(foul, g);
         flag = false;
     }
 
@@ -156,26 +158,22 @@ public class Start implements Serializable {
         fcs = ss.populateCodeList(fcs);
 
         for (int i = 0; i < fcs.size(); i++) {
-            business("Codes", i);
+            ss.populateFoulCodeTable(i);
         }
-    }
-
-    public List<Foul> business(String cmd, int records) {
-        g.setId(gameID);
-        ss.interact(cmd, records, foul, g, foulsAdded);
-        return foulsAdded;
     }
 
     public void delete() {
         int records = Integer.parseInt(record);
-        business("Delete", records);
+        ss.delete(records);
     }
 
     public void edit() {
+        String q = g.getFoulList().get(0).getQuarter();
         setReferee(getOfficial1InString());
         foul.setOfficial1(referee);
         int records = Integer.parseInt(record);
-        business("Edit", records);
+        g.setId(gameID);
+        ss.edit(foul, g, records);
     }
 
     private String record;
@@ -188,7 +186,7 @@ public class Start implements Serializable {
         this.record = record;
     }
 
-    private Long gameID;
+    private Long gameID = 1l;
 
     public Long getGameID() {
         return gameID;
@@ -213,7 +211,7 @@ public class Start implements Serializable {
 
     public List<Foul> getFoulsAdded() {
         foulsAdded = new ArrayList<>();
-        business("Retrieve", 0);
+        ss.GetFoulsAdded(foulsAdded);
         return foulsAdded;
     }
 
