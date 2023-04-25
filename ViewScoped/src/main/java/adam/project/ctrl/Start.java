@@ -109,15 +109,15 @@ public class Start implements Serializable {
     }
 
     public void updateComboBox() {
-        Map<String,String> newFoulHashMap = ss.updateComboBox(getUpdatedFouls(), filter);
+//        Map<String,String> newFoulHashMap = ss.updateComboBox(getUpdatedFouls(), filter);
         
-//        Map<String, String> newFoulHashMap = new LinkedHashMap<>();
-//
-//        for (Map.Entry<String, String> mapToBeFiltered : getUpdatedFouls().entrySet()) {
-//            if (mapToBeFiltered.getKey().contains(filter)) {
-//                newFoulHashMap.put(mapToBeFiltered.getKey(), mapToBeFiltered.getValue());
-//            }
-//        }
+        Map<String, String> newFoulHashMap = new LinkedHashMap<>();
+
+        for (Map.Entry<String, String> mapToBeFiltered : getUpdatedFouls().entrySet()) {
+            if (mapToBeFiltered.getKey().contains(filter)) {
+                newFoulHashMap.put(mapToBeFiltered.getKey(), mapToBeFiltered.getValue());
+            }
+        }
         setFouls(newFoulHashMap);
     }
 

@@ -107,37 +107,38 @@ public class StartService {
     }
 
     public Map<String, String> populatePositions(Map<String, String> positions) {
-        positions = new HashMap<>();
-        positions.put("QB", "QB");
-        positions.put("RB", "RB");
-        positions.put("FB", "FB");
-        positions.put("WR", "WR");
-        positions.put("TE", "TE");
-        positions.put("OL", "OL");
+        positions = new LinkedHashMap<>();
+        positions.put("","");
         positions.put("C", "C");
+        positions.put("CB", "CB");
+        positions.put("DB", "DB");
+        positions.put("DE", "DE");
+        positions.put("DL", "DL");
+        positions.put("DT", "DT");
+        positions.put("FB", "FB");
+        positions.put("FS", "FS");
         positions.put("G", "G");
-        positions.put("LG", "LG");
-        positions.put("RG", "RG");
-        positions.put("T", "T");
-        positions.put("LT", "LT");
-        positions.put("RT", "RT");
+        positions.put("ILB", "ILB");
         positions.put("K", "K");
         positions.put("KR", "KR");
-        positions.put("DL", "DL");
-        positions.put("DE", "DE");
-        positions.put("DT", "DT");
-        positions.put("NT", "NT");
         positions.put("LB", "LB");
-        positions.put("ILB", "ILB");
-        positions.put("OLB", "OLB");
+        positions.put("LG", "LG");
+        positions.put("LT", "LT");
         positions.put("MLB", "MLB");
-        positions.put("DB", "DB");
-        positions.put("CB", "CB");
-        positions.put("FS", "FS");
-        positions.put("SS", "SS");
-        positions.put("S", "S");
+        positions.put("NT", "NT");
+        positions.put("OL", "OL");
+        positions.put("OLB", "OLB");
         positions.put("P", "P");
         positions.put("PR", "PR");
+        positions.put("QB", "QB");
+        positions.put("RB", "RB");
+        positions.put("RG", "RG");
+        positions.put("RT", "RT");
+        positions.put("S", "S");
+        positions.put("SS", "SS");
+        positions.put("T", "T");
+        positions.put("TE", "TE");
+        positions.put("WR", "WR");
         return positions;
     }
 
