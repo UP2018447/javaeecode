@@ -234,8 +234,13 @@ public class Start implements Serializable {
     }
     
     public void checkForm(){
-        if(!foul.getQuarter().isEmpty() && !foul.getHomeOrAway().isEmpty() && !foul.getFoulName().isEmpty() && !foul.getDecision().isEmpty()){
+        if(foul.getTime()==null){
+            flag = false;
+        }
+        else{
+            if(!foul.getQuarter().isEmpty() && !foul.getHomeOrAway().isEmpty() && !foul.getFoulName().isEmpty() && !foul.getDecision().isEmpty()){
             flag = true;
+            }
         }
     }
 

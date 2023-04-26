@@ -14,41 +14,46 @@ import javax.faces.convert.FacesConverter;
  *
  * @author adamt
  */
-
 @FacesConverter("adam.project.converter.TimeConverter")
-public class TimeConverter implements Converter{
+public class TimeConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String time) {
-        String[] splitTime;
-        if (time.contains("'")){
-            splitTime = time.split("'");
+        TimeData data;
+        if(time.equals(null)){
+            data = null;
+            return data;
         }
-        else if (time.contains(".")){
-            splitTime = time.split(".");
+        else{
+            String[] splitTime;
+            if (time.contains("'")) {
+                splitTime = time.split("'");
+            } else if (time.contains(".")) {
+                splitTime = time.split(".");
+            } else if (time.contains(";")) {
+                splitTime = time.split(";");
+            } else if (time.contains(":")) {
+                splitTime = time.split(":");
+            } else if (time.contains("-")) {
+                splitTime = time.split("-");
+            } else if (time.contains("_")) {
+                splitTime = time.split("_");
+            } else if (time.contains(" ")) {
+                splitTime = time.split(" ");
+            } else {
+                splitTime = time.split("");
+            }
+            String min = splitTime[0];
+            String secs = splitTime[1];
+            int mins = Integer.parseInt(min);
+            int sec = Integer.parseInt(secs);
+            int minsToSecs = mins * 60;
+            sec = sec + minsToSecs;
+            String totalSeconds = Integer.toString(sec);
+            data = new TimeData();
+            data.setSeconds(sec);
+            return data;
         }
-        else if (time.contains(";")){
-            splitTime = time.split(";");
-        }
-        else if (time.contains(":")){
-            splitTime = time.split(":");
-        }
-        else if (time.contains("-")){
-            splitTime = time.split("-");
-        }
-        else {
-            splitTime = time.split("_");
-        }
-        String min = splitTime[0];
-        String secs = splitTime[1];
-        int mins = Integer.parseInt(min);
-        int sec = Integer.parseInt(secs);
-        int minsToSecs = mins * 60;
-        sec = sec + minsToSecs;
-        String totalSeconds = Integer.toString(sec);
-        TimeData data = new TimeData();
-        data.setSeconds(sec);
-        return data;
     }
 
     @Override
@@ -74,6 +79,4 @@ public class TimeConverter implements Converter{
         //return time;
     }
 
-
-    
 }
