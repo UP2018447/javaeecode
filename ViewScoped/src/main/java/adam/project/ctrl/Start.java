@@ -12,7 +12,6 @@ import javax.inject.Named;
 import adam.project.bus.StartService;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
 import adam.project.ents.Foul;
 import adam.project.ents.Game;
 import java.util.LinkedHashMap;
@@ -30,10 +29,12 @@ public class Start implements Serializable {
      * Creates a new instance of addFoul
      */
     
-    private String[] official1;
+    private String[] officials;
     private String referee;
     private static Map<String,String> officialList;
     private Map<String, String> fouls;
+    private List<String> majorFouls;
+    private int majorFoulCount;
     private Map<String, String> positions;
     private static Map<String, String> updatedFouls;
 
@@ -51,17 +52,17 @@ public class Start implements Serializable {
         this.foul = foul;
     }
 
-    private Game g = new Game();
+    private Game game = new Game();
 
     public Game getG() {
-        return g;
+        return game;
     }
 
     public void setG(Game g) {
-        this.g = g;
+        this.game = g;
     }
 
-    public Map<String, String> getOfficials() {
+    public Map<String, String> getOfficialList() {
         officialList = new LinkedHashMap<>();
         officialList.put("R", "R");
         officialList.put("U", "U");
@@ -72,7 +73,6 @@ public class Start implements Serializable {
         officialList.put("SJ", "SJ");
         officialList.put("CJ", "CJ");
         officialList.put("VJ", "VJ");
-        officialList.put("N/A", "N/A");
         return officialList;
     }
 
@@ -108,9 +108,7 @@ public class Start implements Serializable {
         this.fouls = fouls;
     }
 
-    public void updateComboBox() {
-//        Map<String,String> newFoulHashMap = ss.updateComboBox(getUpdatedFouls(), filter);
-        
+    public void updateComboBox() {        
         Map<String, String> newFoulHashMap = new LinkedHashMap<>();
 
         for (Map.Entry<String, String> mapToBeFiltered : getUpdatedFouls().entrySet()) {
@@ -121,16 +119,16 @@ public class Start implements Serializable {
         setFouls(newFoulHashMap);
     }
 
-    public String[] getOfficial1() {
-        return official1;
+    public String[] getOfficials() {
+        return officials;
     }
 
-    public void setOfficial1(String[] official1) {
-        this.official1 = official1;
+    public void setOfficials(String[] official1) {
+        this.officials = official1;
     }
 
-    public String getOfficial1InString() {
-        return Arrays.toString(official1);
+    public String getOfficialsInString() {
+        return Arrays.toString(officials);
     }
 
     public String getReferee() {
@@ -144,49 +142,56 @@ public class Start implements Serializable {
     @EJB
     private StartService ss;
 
-    public void action() {
-        setReferee(getOfficial1InString());
-        foul.setOfficial1(referee);
-        g.setId(gameID);
-        ss.addFoul(foul, g);
-        flag = false;
+    public void addFoul() {
+        if(getOfficials().length == 0){
+            setReferee("None");
+        }
+        else{
+            setReferee(getOfficialsInString());
+        }
+        foul.setOfficials(referee);
+        game.setId(gameID);
+        for(int i = 0; i < getMajorFouls().size(); i++){
+            if(foul.getFoulName().equals(majorFouls.get(i))){
+                majorFoulCount++;
+            }
+        }
+        ss.addFoul(foul, game);
     }
 
-    @PostConstruct
     public void populateFoulCodes() {
-        List<String> fcs = null;
-        fcs = ss.populateCodeList(fcs);
-
-        for (int i = 0; i < fcs.size(); i++) {
+        for (int i = 0; i < populateFoulMap().size(); i++) {
             ss.populateFoulCodeTable(i);
         }
     }
 
     public void delete() {
-        int records = Integer.parseInt(record);
-        ss.delete(records);
+        ss.delete(record);
     }
 
     public void edit() {
-        String q = g.getFoulList().get(0).getQuarter();
-        setReferee(getOfficial1InString());
-        foul.setOfficial1(referee);
-        int records = Integer.parseInt(record);
-        g.setId(gameID);
-        ss.edit(foul, g, records);
+        if(getOfficials().length == 0){
+            setReferee("None");
+        }
+        else{
+            setReferee(getOfficialsInString());
+        }
+        foul.setOfficials(referee);
+        game.setId(gameID);
+        ss.edit(foul, game, record);
     }
 
-    private String record;
+    private long record;
 
-    public String getRecord() {
+    public long getRecord() {
         return record;
     }
 
-    public void setRecord(String record) {
+    public void setRecord(long record) {
         this.record = record;
     }
 
-    private Long gameID = 1l;
+    private Long gameID;
 
     public Long getGameID() {
         return gameID;
@@ -329,4 +334,58 @@ public class Start implements Serializable {
         fouls.put("UFT", "Unfair tactics");
         return fouls;
     }
+
+    public List<String> getMajorFouls() {
+        majorFouls = new ArrayList<>();
+        majorFouls.add("Pass interference, defense");
+        majorFouls.add("Personal Foul, Blocking Below the Waist");
+        majorFouls.add("Personal Foul, Blocking Out of Bounds");
+        majorFouls.add("Personal Foul, Blow To the Head");
+        majorFouls.add("Personal Foul, Chop Block");
+        majorFouls.add("Personal Foul, Clipping");
+        majorFouls.add("Personal Foul, Face Mask");
+        majorFouls.add("Personal Foul, Horse Collar Tackle");
+        majorFouls.add("Personal Foul, Hit on Defenseless Receiver");
+        majorFouls.add("Personal Foul, Hands To the Face");
+        majorFouls.add("Personal Foul, Hurdling");
+        majorFouls.add("Personal Foul, Illegal Contact with Snapper");
+        majorFouls.add("Personal Foul, Leaping");
+        majorFouls.add("Personal Foul, Late Hit/Piling on");
+        majorFouls.add("Personal Foul, Late Hit out of Bounds");
+        majorFouls.add("Personal Foul, Other");
+        majorFouls.add("Personal Foul, Roughing Free Kicker");
+        majorFouls.add("Personal Foul, Roughing The Holder");
+        majorFouls.add("Personal Foul, Roughing The Kicker");
+        majorFouls.add("Personal Foul, Roughing The Passer");
+        majorFouls.add("Personal Foul, Striking/Kneeing/Elbowing");
+        majorFouls.add("Personal Foul, Targeting");
+        majorFouls.add("Personal Foul, Tripping");
+        majorFouls.add("Personal Foul, Unnecessary Roughness");
+        majorFouls.add("Sideline interference, 15 yards");
+        majorFouls.add("Unsportsmanlike conduct, two players with same number");
+        majorFouls.add("Unsportsmanlike conduct, abusive language");
+        majorFouls.add("Unsportsmanlike conduct, bench");
+        majorFouls.add("Unsportsmanlike conduct, delayed/excessive act");
+        majorFouls.add("Unsportsmanlike conduct, forcibly contacting an official");
+        majorFouls.add("Unsportsmanlike conduct, removal of helmet");
+        majorFouls.add("Unsportsmanlike conduct, simulating being roughed");
+        majorFouls.add("Unsportsmanlike conduct, spiking/throwing ball");
+        majorFouls.add("Unsportsmanlike conduct, taunting/baiting");
+        majorFouls.add("Unsportsmanlike conduct, other");
+        return majorFouls;
+    }
+
+    public void setMajorFouls(List<String> majorFouls) {
+        this.majorFouls = majorFouls;
+    }
+
+    public int getMajorFoulCount() {
+        return majorFoulCount;
+    }
+
+    public void setMajorFoulCount(int majorFoulCount) {
+        this.majorFoulCount = majorFoulCount;
+    }
+    
+    
 }

@@ -19,47 +19,37 @@ public class TimeConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String time) {
-        TimeData data;
-        if(time.equals(null)){
-            data = null;
-            return data;
+        String[] splitTime;
+        if (time.contains("'")) {
+            splitTime = time.split("'");
+        } else if (time.contains(".")) {
+            splitTime = time.split(".");
+        } else if (time.contains(";")) {
+            splitTime = time.split(";");
+        } else if (time.contains(":")) {
+            splitTime = time.split(":");
+        } else if (time.contains("-")) {
+            splitTime = time.split("-");
+        } else if (time.contains("_")) {
+            splitTime = time.split("_");
+        } else{
+            splitTime = time.split(" ");
         }
-        else{
-            String[] splitTime;
-            if (time.contains("'")) {
-                splitTime = time.split("'");
-            } else if (time.contains(".")) {
-                splitTime = time.split(".");
-            } else if (time.contains(";")) {
-                splitTime = time.split(";");
-            } else if (time.contains(":")) {
-                splitTime = time.split(":");
-            } else if (time.contains("-")) {
-                splitTime = time.split("-");
-            } else if (time.contains("_")) {
-                splitTime = time.split("_");
-            } else if (time.contains(" ")) {
-                splitTime = time.split(" ");
-            } else {
-                splitTime = time.split("");
-            }
-            String min = splitTime[0];
-            String secs = splitTime[1];
-            int mins = Integer.parseInt(min);
-            int sec = Integer.parseInt(secs);
-            int minsToSecs = mins * 60;
-            sec = sec + minsToSecs;
-            String totalSeconds = Integer.toString(sec);
-            data = new TimeData();
-            data.setSeconds(sec);
-            return data;
-        }
+        String min = splitTime[0];
+        String secs = splitTime[1];
+        int mins = Integer.parseInt(min);
+        int sec = Integer.parseInt(secs);
+        int minsToSecs = mins * 60;
+        sec = sec + minsToSecs;
+        TimeData data = new TimeData();
+        data.setSeconds(sec);
+        return data;
     }
 
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object t) {
         TimeData data = (TimeData) t;
-        String seconds = t.toString();
+        String seconds = data.toString();
         int secs = Integer.parseInt(seconds);
         int remainingSeconds = secs % 60;
         secs = secs - remainingSeconds;
@@ -68,15 +58,5 @@ public class TimeConverter implements Converter {
         String secsRemaining = Integer.toString(remainingSeconds);
         String time = mins + "'" + secsRemaining;
         return time;
-        //String seconds = t.toString();
-        //int secs = Integer.parseInt(seconds);
-        //int remainingSeconds = secs % 60;
-        //secs = secs - remainingSeconds;
-        //int minutes = secs / 60;
-        //String mins = Integer.toString(minutes);
-        //String secsRemaining = Integer.toString(remainingSeconds);
-        //String time = mins + "'" + secsRemaining;
-        //return time;
     }
-
 }

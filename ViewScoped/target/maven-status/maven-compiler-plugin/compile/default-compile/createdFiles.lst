@@ -1,7 +1,5 @@
 adam\project\bus\StartService.class
 adam\project\pers\GameFacade.class
-adam\project\pers\NewFoulCodesFacade.class
-adam\project\ents\NewFoulCodes.class
 adam\project\resources\JakartaEE8Resource.class
 adam\project\converter\TimeConverter.class
 adam\project\ents\Foul.class

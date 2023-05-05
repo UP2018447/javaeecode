@@ -10,11 +10,10 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import adam.project.ents.Foul;
 import adam.project.ents.Game;
-import adam.project.ents.NewFoulCodes;
+import adam.project.ents.FoulCodes;
 import adam.project.pers.FoulFacade;
 import adam.project.pers.GameFacade;
-import adam.project.pers.NewFoulCodesFacade;
-import java.util.HashMap;
+import adam.project.pers.FoulCodesFacade;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -25,28 +24,26 @@ import java.util.Map;
 @Stateless
 public class StartService {
 
-    // addFoul business logic below. (Right-click in editor and choose
-    // "Insert Code > addFoul Business Method")
     @EJB
     private FoulFacade ff;
 
     @EJB
-    private NewFoulCodesFacade nfcf;
+    private FoulCodesFacade fcf;
 
     @EJB
     private GameFacade gf;
 
-    public Foul addFoul(Foul foul, Game g) {
-        foul.setGame(g);
+    public Foul addFoul(Foul foul, Game game) {
+        foul.setGame(game);
         List<Foul> fouls = retrieveFoul();
         fouls.add(foul);
-        g.setFoulList(fouls);
-        gf.edit(g);
+        game.setFoulList(fouls);
+        gf.edit(game);
         return foul;
     }
 
     public void populateFoulCodeTable(int i) {
-        NewFoulCodes nfc = new NewFoulCodes();
+        FoulCodes nfc = new FoulCodes();
         List<String> fouls = null;
         List<String> codes = null;
         fouls = populateNameList(fouls);
@@ -55,55 +52,44 @@ public class StartService {
         String code = codes.get(i);
         nfc.setFoulCode(code);
         nfc.setFoulName(foul);
-        nfcf.create(nfc);
+        fcf.create(nfc);
     }
 
-    public void delete(int records) {
-        long searchID = records;
-//        List<Foul> foulTable = retrieveFoul();
-        Foul foul = ff.find(searchID);
+    public void delete(long records) {
+        Foul foul = ff.find(records);
         Game game = gf.find(foul.getGame().getId());
         List<Foul> gameFouls = game.getFoulList();
         gameFouls.remove(foul);
         game.setFoulList(gameFouls);
         gf.edit(game);
-
         ff.remove(foul);
     }
 
-    public Map<String, String> updateComboBox(Map<String, String> updatedFouls, String filter) {
-        Map<String, String> newFoulHashMap = new LinkedHashMap<>();
-
-        for (Map.Entry<String, String> mapToBeFiltered : updatedFouls.entrySet()) {
-            if (mapToBeFiltered.getKey().contains(filter)) {
-                newFoulHashMap.put(mapToBeFiltered.getKey(), mapToBeFiltered.getValue());
-            }
-        }
-        return newFoulHashMap;
-    }
-
-    public void edit(Foul foul, Game g, int records) {
-        long searchID = records;
-        List<Foul> foulTable = retrieveFoul();
-        Foul f = ff.find(searchID);
-        long id = f.getId();
-        foul.setId(id);
-        foul.setGame(g);
-        long check = foul.getGame().getId();
+    public void edit(Foul foul, Game g, long records) {
+        Foul f = ff.find(records);
+        f.setGame(g);
+        f.setQuarter(foul.getQuarter());
+        f.setTime(foul.getTime());
+        f.setHomeOrAway(foul.getHomeOrAway());
+        f.setFoulName(foul.getFoulName());
+        f.setPlayer(foul.getPlayer());
+        f.setPosition(foul.getPosition());
+        f.setOfficials(foul.getOfficials());
+        f.setDecision(foul.getDecision());
         g = gf.find(f.getGame().getId());
         List<Foul> gameFouls = g.getFoulList();
         int index = 0;
         for (int i = 0; i < gameFouls.size(); i++) {
-            if (gameFouls.get(i).getId().equals(foul.getId())) {
+            if (gameFouls.get(i).getId().equals(f.getId())) {
                 break;
             }
             index++;
         }
-        gameFouls.set(index, foul);
+        gameFouls.set(index, f);
         g.setFoulList(gameFouls);
 
         gf.edit(g);
-//        ff.edit(foul);
+        ff.edit(f);
     }
 
     public Map<String, String> populatePositions(Map<String, String> positions) {

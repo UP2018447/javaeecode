@@ -10,7 +10,7 @@
     <h:body>
         <h:form>
             
-            <h:panelGrid columns="9" border="1" id="grid">
+            <h:panelGrid columns="10" border="1" id="grid">
                 <f:facet name="header">
                     <h:outputText value="Form"/>
                 </f:facet>
@@ -23,6 +23,7 @@
                 <p:outputLabel value="Player Position"/>
                 <p:outputLabel value="Officials"/>
                 <p:outputLabel value="Decision"/>
+                <p:outputLabel value="Game"/>
                 
                 <p:inputText value="#{start.foul.quarter}" id="quarter" style="width: 100px" required="true" requiredMessage="Enter Quarter"/>
                 
@@ -51,8 +52,8 @@
                     <f:selectItems value="#{start.positions}" itemLabel="#{positions.key}" itemValue="#{positions.value}"/>
                 </p:selectOneMenu>
                 
-                <p:selectManyButton id="official" value="#{start.official1}" style="width: 510px" required="true" requiredMessage="Select Official(s)">
-                    <f:selectItems value="#{start.officials}" itemLabel="#{officials.key}" itemValue="#{officials.value}"/>
+                <p:selectManyButton id="official" value="#{start.officials}" style="width: 440px">
+                    <f:selectItems value="#{start.officialList}" itemLabel="#{officialList.key}" itemValue="#{officialList.value}"/>
                 </p:selectManyButton>
                 
                 <p:selectOneButton id="decision" value="#{start.foul.decision}" style="width: 280px" required="true" requiredMessage="Select Decision">
@@ -61,8 +62,10 @@
                     <f:selectItem itemValue="Offset" itemLabel="Offset"/>
                 </p:selectOneButton>
                 
+                <p:inputText id="game" value="#{start.gameID}" style="width: 100px"/>
+                
                 <f:facet name="footer">
-                    <h:commandButton value="Add Foul" action="#{start.action}"/>
+                    <h:commandButton value="Add Foul" action="#{start.addFoul}"/>
                     <h:commandButton value="Finish" action="next"/>
                 </f:facet>
             </h:panelGrid>
@@ -71,7 +74,6 @@
             <p:message for="data2"/>
             <p:message for="team"/>
             <p:message for="foulMenu"/>
-            <p:message for="official"/>
             <p:message for="decision"/>
             <br/>
             <h:dataTable value="#{start.foulsAdded}" var="foul" border="1">
@@ -134,7 +136,7 @@
                     <f:facet name="header">
                         <h:outputText value="Officials"/>
                     </f:facet>
-                    <h:outputText value="#{foul.official1}"/>
+                    <h:outputText value="#{foul.officials}"/>
                 </h:column>
                 
                 <h:column>
@@ -147,6 +149,8 @@
                 <f:facet name="footer">
                     <h:outputLabel value="Fouls: "/>
                     <h:outputText value="#{start.count}"/>
+                    <h:outputLabel value=" Major Fouls: "/>
+                    <h:outputText value="#{start.majorFoulCount}"/>
                     <h:outputText value=" | Which foul would you like to edit/remove: "/>
                     <h:inputText value="#{start.record}"/>
                     <h:commandButton value="Delete" action="#{start.delete}"/>

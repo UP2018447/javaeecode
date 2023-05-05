@@ -5,10 +5,8 @@
 package adam.project.ents;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +16,7 @@ import javax.persistence.ManyToOne;
  *
  * @author adamt
  */
-@Entity(name="foul39")
+@Entity(name="foul")
 public class Foul implements Serializable{
     
     private static final long serialVersionUID = 1L;
@@ -85,14 +83,14 @@ public class Foul implements Serializable{
         this.homeOrAway = homeOrAway;
     }
     
-    private String official1;
+    private String officials;
 
-    public String getOfficial1() {
-        return official1;
+    public String getOfficials() {
+        return officials;
     }
 
-    public void setOfficial1(String official1) {
-        this.official1 = official1;
+    public void setOfficials(String official1) {
+        this.officials = official1;
     }
     
     private String decision;
